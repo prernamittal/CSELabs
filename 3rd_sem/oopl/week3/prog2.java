@@ -89,8 +89,8 @@ public class prog2
     {
         Time obj1=new Time();
         Time obj2 = new Time();
-        obj1.input(2,59,59);
-        obj2.input(3,5,6);
+        obj1.input(2,45,30);
+        obj2.input(1,6,4);
         obj1.add(obj1,obj2);
         obj2.subtract(obj1,obj2);
     }
