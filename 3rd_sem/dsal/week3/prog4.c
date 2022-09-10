@@ -48,8 +48,8 @@ for (int i=0;i<n;i++)
 void disp(STUDENT *s,int n) {
     for(int i=0;i<n;i++) {
         printf("\nDetails are:");
-        printf("\nThe name is : %s", (s+i)->stu.name);
-        printf("\nThe registration number is: %d", (s+i)->stu.reg_no);
+        printf("\nName is : %s", (s+i)->stu.name);
+        printf("\nRegistration number is: %d", (s+i)->stu.reg_no);
 
     }
 }
