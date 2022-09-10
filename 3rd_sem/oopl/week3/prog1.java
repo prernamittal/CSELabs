@@ -28,7 +28,7 @@ class Complex
         return temp;
     }
 }
-class ComplexDemo
+public class prog1
 {
     public static void main (String[] args)
     {
