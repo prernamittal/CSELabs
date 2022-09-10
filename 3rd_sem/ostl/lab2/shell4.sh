@@ -1,0 +1,1 @@
+echo no. of files in current directory is ls | wc -l
