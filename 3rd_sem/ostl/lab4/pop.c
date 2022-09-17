@@ -1,12 +1,16 @@
 #include <stdio.h>
-int pop(int *arr, int tos)
+#define Size 4 
+void Pop()
 {
-	if(tos==-1)
-		return -5;
-	else 
+	int x, Top=-1, arr[Size];
+	if(Top==-1)
 	{
-		arr[tos]=-2;
-		tos-=1;
-		return tos;
+		printf("\nUnderflow!!");
+	}
+	else
+	{
+		printf("\nPopped element:  %d",arr[Top]);
+		Top=Top-1;
 	}
 }
+ 

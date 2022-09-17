@@ -1,14 +1,18 @@
 #include <stdio.h>
-int push(int *arr, int n, int tos, int x)
+#define Size 4 
+void Push()
 {
-	if((tos+1)>(n-1))
+	int x, Top=-1, arr[Size];
+	if(Top==Size-1)
 	{
-		return -1;
+		printf("\nOverflow!!");
 	}
 	else
 	{
-		tos +=1;
-		arr[tos]=x;
-		return tos;
+		printf("\nEnter element to be inserted:");
+		scanf("%d",&x);
+		Top=Top+1;
+		arr[Top]=x;
 	}
 }
+ 
