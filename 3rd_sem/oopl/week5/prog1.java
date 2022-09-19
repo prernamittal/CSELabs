@@ -27,7 +27,7 @@ class Student
     }
     public void display() 
     {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy"); 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY"); 
         System.out.println("\n\t       Name : " + name + 
                            "\n\t     Reg No : " + reg_no + 
                            "\n\tDate Joined : " + dateFormat.format(date.getTime()) +
@@ -41,8 +41,8 @@ class Student
         Scanner sc = new Scanner(System.in);
         System.out.print("\n\tEnter Name: ");
         name = sc.nextLine();
-        System.out.print("\tEnter Date Joined (yyyy/mm/dd): ");
-        date = new GregorianCalendar(sc.nextInt(), sc.nextInt() - 1, sc.nextInt());
+        System.out.print("\tEnter Date Joined (DD/MM/YYYY): ");
+        date = new GregorianCalendar(sc.nextInt(), sc.nextInt(), sc.nextInt());
         System.out.print("\tEnter Semester: ");
         sem = sc.nextShort();
         System.out.print("\tEnter GPA: ");
@@ -157,7 +157,7 @@ public class prog1
         Students students = new Students (size);
         students.inputAll();
 		sc.nextLine();
-        char choice;
+        int choice;
         do 
         {
             System.out.print("\n\t1. Display Records." + 
@@ -167,52 +167,49 @@ public class prog1
 							"\n\t5. List all Students whose name begins with a character." +
 							"\n\t6. List all Students whose name contains a string." +
 							"\n\t7. Change the names of all students to shortened form." +
-							"\nAnything else for exit." +
 							"\n\n\t Enter choice: ");
-            choice = sc.next().charAt(0);
-			sc.nextLine();
+            choice = sc.nextInt();
             switch (choice) 
             {
-                case '1': 
+                case 1: 
                 students.displayAll();
                 break;
-                case '2': 
+                case 2: 
                 students.sort("name");
-                System.out.println("\nSotred wrt Name.\n");
+                System.out.println("\nSorted wrt Name.\n");
                 students.displayAll();
                 break;
-                case '3': 
+                case 3: 
                 students.sort("sem");
-                System.out.println("\nSotred wrt Semester.\n");
+                System.out.println("\nSorted wrt Semester.\n");
                 students.displayAll();
                 break;
-                case '4': 
+                case 4: 
                 students.sort("cgpa");
-                System.out.println("\nSotred wrt CGPA.\n");
+                System.out.println("\nSorted wrt CGPA.\n");
                 students.displayAll();
                 break;
-                case '5': 
+                case 5: 
                 System.out.print("\n\tEnter the character: ");
                 char ch = sc.next().charAt(0);
                 students.list(ch);
 				System.out.println("\n\tAll the student names starting with \' " + ch + "\' : \n");
 				students.displayAll();
                 break;
-                case '6': 
+                case 6: 
                 System.out.print("\n\tEnter the string: ");
                 String subs = sc.nextLine();
                 students.list(subs);
 				System.out.println("\n\tAll the student names containing \' " + subs + "\' : \n");
 				students.displayAll();
                 break;
-                case '7': 
+                case 7: 
                 students.shortenName();
                 System.out.println("\n\tShortened Name.\n");
                 students.displayAll();
                 break;
-                default: 
-                break;
             }
-        }while ("1234567".indexOf(choice)!=-1);
+        }
+        while (choice != 8);
     }
 }
