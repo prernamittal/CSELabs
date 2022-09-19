@@ -17,7 +17,7 @@ class prog2
 		{
     		num = ","+num;
 		}
-		System.out.println("Number = " + num);
 	    }
+		System.out.println("Number = " + num);
     }
 }
