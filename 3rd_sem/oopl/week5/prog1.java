@@ -49,7 +49,6 @@ class Student
         gpa = sc.nextFloat();
         System.out.print("\tEnter CGPA: ");
         cgpa = sc.nextFloat();
-        System.out.println();
     }
 }
 class Students 
@@ -125,20 +124,14 @@ class Students
             int min = i;
             for (int j = i + 1; j < size; ++j) 
             {
-                if (wrt.equals("sem") && (students[j].sem > students[min].sem))
+                if ((wrt.equals("sem") && (students[j].sem > students[min].sem))|| 
+                (wrt.equals("cgpa") && (students[j].cgpa > students[min].cgpa))||
+                (wrt.equals("name") && (students[j].name.compareTo(students[min].name))<0))
                 {
                     min = j;
                 }
-                if (wrt.equals("cgpa") && (students[j].cgpa > students[min].cgpa))
-                {
-                    min = j;
-                }
-                if (wrt.equals("name") && (students[j].name.compareTo(students[min].name)) < 0)
-                {
-                    min = j;
-                }
-            }
-            if (min != i) 
+                
+            }            if (min != i) 
             {
                 Student temp = students[i];
                 students[i] = students[min];
@@ -198,7 +191,7 @@ public class prog1
                 break;
                 case 6: 
                 System.out.print("\n\tEnter the string: ");
-                String subs = sc.nextLine();
+                String subs = sc.next();
                 students.list(subs);
 				System.out.println("\n\tAll the student names containing \' " + subs + "\' : \n");
 				students.displayAll();
