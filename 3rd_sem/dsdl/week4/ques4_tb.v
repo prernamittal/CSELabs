@@ -1,14 +1,14 @@
 `timescale 1ns/1ns
-`include "ques2.v"
-module ques2_tb();
-reg [3:0] x,y;
-reg cin;
-wire [3:0] sum;
-wire cout;
-ques2 ques(x,y,sum,cin,cout);
+`include "ques4.v"
+module ques4_tb();
+reg [3:0] A,B;
+reg C0;
+wire [3:0] S;
+wire C;
+ques4 ques(S,C,A,B,C0);
 initial begin 
-	$dumpfile("ques2_tb.vcd");
-	$dumpvars(0, ques2_tb);
+	$dumpfile("ques4_tb.vcd");
+	$dumpvars(0, ques4_tb);
 	
 	x=0011; y=0011; cin=0;
 	#20;
