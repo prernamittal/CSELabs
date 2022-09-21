@@ -1,16 +1,17 @@
 module ques1c(x,y,sum,cin,cout);
 input x,y,cin;
 output sum,cout;
-halfadd stage0 (x, y, s, c1);
-halfadd stage1 (s, cin, sum, c2);
-or(cout,c1,c2);
+wire s1,c1,c2;
+halfadd stage0 (s1,c1,x,y);
+halfadd stage1 (sum,c2,s1,cin);
+or (cout,c2,c1);
 endmodule
 
-module halfadd(xi,yi,sumi,carryi);
-input xi,yi;
-output sumi,carryi;
-assign sumi=(xi^yi);
-assign carryi=(xi&yi);
+module halfadd(x,y,sum,carry);
+input x,y;
+output sum,carry;
+assign sum=(x^y);
+assign carry=(x&y);
 endmodule
 
 
