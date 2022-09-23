@@ -4,5 +4,5 @@ int main()
 int n;
 printf("Enter a number: ");
 scanf("%d", &n);
-printf("number is: ", (n+1);
+printf("number is: ", (n+2);
 }
