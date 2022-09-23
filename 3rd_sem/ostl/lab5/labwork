@@ -1,0 +1,50 @@
+//QUES 01, 02
+gedit helloworld.c
+#include <stdio.h>
+int main()
+{
+int n;
+printf("Enter a number: ");
+scanf("%d", &n);
+printf("number is: ", (n);
+}
+git init
+cd .git
+git status
+git add .
+git commit -m "first"
+git push origin main
+
+//QUES 03, 04
+gedit helloworld.c
+#include <stdio.h>
+int main()
+{
+int n;
+printf("Enter a number: ");
+scanf("%d", &n);
+printf("number is: ", (n+1);
+}
+git diff
+git add .
+git commit -m "second"
+git log
+
+//QUES 05
+gedit helloworld.c
+#include <stdio.h>
+int main()
+{
+int n;
+printf("Enter a number: ");
+scanf("%d", &n);
+printf("number is: ", (n+2);
+}
+git status
+git checkout <branch>
+git status
+git log
+
+//QUES 06
+copy commit id
+git show <id>
