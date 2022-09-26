@@ -4,7 +4,7 @@
 int Top=-1, arr[Size];
 void Push();
 void Pop();
-void show();
+void display();
 int main()
 {
 	int choice;
