@@ -25,6 +25,6 @@ void main()
     for(i=top;top>-1;top--)
     {
         ele = pop();
-        printf("%d\n", ele);
+        printf("%d", ele);
     }
 }
