@@ -68,7 +68,7 @@ class Students
             students[i] = new Student();
             students[i].input();
             
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("YY");
             String reg_no = dateFormat.format(students[i].date.getTime());
             reg_no += String.format( "%02d", i+1);
             students[i].reg_no = Integer.parseInt(reg_no);
