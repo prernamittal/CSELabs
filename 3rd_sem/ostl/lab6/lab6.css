@@ -1,0 +1,17 @@
+body {
+    background-color: #9494d3;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 30px;
+    }
+.div1 {
+    border: 5px outset rgb(238, 188, 113);
+    background-color: #9494d3;
+    text-align: center;
+    }
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    }
