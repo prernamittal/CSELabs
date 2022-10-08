@@ -3,7 +3,7 @@
 int stack[20], top=-1;
 void push(int num)
 {
-    stack[top++]=num;
+    stack[++top]=num;
 }
 int pop()
 {

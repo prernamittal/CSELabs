@@ -23,6 +23,7 @@ int precedence(char op)
     else if(op=='*'||op=='/')
     return 2;
 }
+//strrev is not a part of string.h in linux
 char *strrev(char *str)
 {
       char *p1, *p2;
