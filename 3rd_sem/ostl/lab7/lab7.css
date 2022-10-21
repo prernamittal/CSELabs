@@ -26,3 +26,6 @@ body {
 #canvas2 {
     transform: rotate(6deg);
 }
+#rain{
+    color:white;
+}

@@ -1,4 +1,3 @@
-let box = document.getElementById("box");
 let canvas = document.getElementById("canvas2");
 let context = canvas.getContext("2d");
 
@@ -31,7 +30,7 @@ function init() {
 function rain() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   for (let i = 0; i < n; i++){
-    context.fillStyle = "#2e2f1d";
+    context.fillStyle = "white";
     context.fillRect(drops[i].x, drops[i].y, drops[i].width, drops[i].height);
     drops[i].y += drops[i].speed;
 
