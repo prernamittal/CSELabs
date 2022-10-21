@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>lab7</title>
+<link rel="stylesheet" type="text/css" href="./lab7.css"/>
+</head>
+<body>
+    <div id="greeting">
+    <script>
+        const greeting = document.getElementById('greeting');
+        const hour = new Date().getHours();
+        const welcomeTypes = ['Good morning', 'Good afternoon', 'Good evening'];
+        let welcomeText = '';
+        if (hour < 12) welcomeText = welcomeTypes[0];
+        else if (hour < 18) welcomeText = welcomeTypes[1];
+        else welcomeText = welcomeTypes[2];
+        greeting.innerHTML = welcomeText;
+    </script>
+    </div>
+
+    <div id="clock">
+        <canvas id="canvas" width="400" height="400">
+        <script src="clock.js"></script>
+        </canvas>
+    </div>
+
+    <div id="box">
+        <canvas id="canvas2" width="400" height="400">
+        <script src="rain.js"></script>
+        </canvas>
+    </div>
+
+</body>
+</html>
