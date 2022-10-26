@@ -1,4 +1,4 @@
-module q3(w,y,z);
+module q5(w,y,z);
 input [15:0]w;
 output reg [3:0]y;
 output reg z;

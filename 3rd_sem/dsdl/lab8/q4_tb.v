@@ -5,7 +5,7 @@ reg [3:0]w;
 wire [1:0]y;
 q4 ques(w,y,z);
 initial begin
-	$dumpfile("q4.vcd");
+	$dumpfile("q4_tb.vcd");
 	$dumpvars(0,q4_tb);
 	w=0001; #20;
 	w=0010; #20;
