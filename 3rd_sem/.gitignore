@@ -1,5 +1,14 @@
+#ostl
 *.aux
 *.fls
 *.log
+*.toc
 *.synctex.gz
 *.fdb_latexmk
+
+#others
+*.exe
+*.class
+*.vvp
+*.vcd
+

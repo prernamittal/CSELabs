@@ -1,4 +1,5 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
+\usepackage{graphicx}
     \begin{document}
     \title{Lab Exercises}
     \author{Prerna Mittal}
@@ -25,4 +26,22 @@
     \subsection{stage2}
     \section{Result}
     Here are my results
+    \chapter{Heading}
+    \subsection{stage1}
+    \begin{itemize}
+        \item apple
+        \item orange
+        \begin{itemize}
+            \item nested
+            \item nested
+        \end{itemize}
+    this is different from above
+    \end{itemize}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{cat.jpeg}
+        \label{cat}
+    \end{figure}
     \end{document}
+
