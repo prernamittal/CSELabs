@@ -3,6 +3,8 @@
 *.fls
 *.log
 *.toc
+*.nav
+*.out*.snm
 *.synctex.gz
 *.fdb_latexmk
 
