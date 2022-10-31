@@ -33,12 +33,10 @@ public class prog1
             Thread.sleep(1000);
         }
         catch(InterruptedException e) {
-            System.out.println("Interrupted..");
+            System.out.println("Exception occured");
         }
         System.out.println("Table of 5: "+obj1.table);
         System.out.println("Table of 7: "+obj2.table);
         System.out.println("Table of"+n +" :" +objn.table);
-
-
     }
 }
