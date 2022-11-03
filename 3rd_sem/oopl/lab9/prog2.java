@@ -36,6 +36,5 @@ public class prog2
         Matrix r3 = new Matrix(mat[2],9);
         sum=r1.Sum()+r2.Sum()+r3.Sum();
         System.out.println("Total matrix sum: "+sum);
-
     }
 }
