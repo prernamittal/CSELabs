@@ -41,6 +41,5 @@ public class prog2
         }
         sum=r1.Sum()+r2.Sum()+r3.Sum();
         System.out.println("Total matrix sum: "+sum);
-
     }
 }
