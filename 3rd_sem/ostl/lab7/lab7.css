@@ -26,6 +26,10 @@ body {
 #canvas2 {
     transform: rotate(6deg);
 }
-#rain{
+#color
+{
+    border-radius: 50%;
+}
+#files{
     color:white;
 }
