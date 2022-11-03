@@ -34,6 +34,11 @@ public class prog2
         Matrix r1 = new Matrix(mat[0],6);
         Matrix r2 = new Matrix(mat[1],5);
         Matrix r3 = new Matrix(mat[2],9);
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted lmao");
+        }
         sum=r1.Sum()+r2.Sum()+r3.Sum();
         System.out.println("Total matrix sum: "+sum);
 
