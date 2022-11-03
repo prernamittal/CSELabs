@@ -1,4 +1,3 @@
-//buggy
 class Matrix implements Runnable
 {
     int n[],sum;
