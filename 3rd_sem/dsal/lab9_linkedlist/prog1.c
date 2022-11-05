@@ -39,6 +39,7 @@ void display()
     else
     {
         struct Node *temp=front;
+        printf("Queue is: ");
         while(temp->next!=NULL)
         {
             printf("%d\t",temp->data);
@@ -69,5 +70,4 @@ void main()
             break;
         }
     } while (choice!=4);
-    
 }
