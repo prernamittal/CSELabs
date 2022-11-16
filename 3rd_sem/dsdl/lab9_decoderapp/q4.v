@@ -18,7 +18,7 @@ endmodule
 module dec(w,en,y);
 input [2:0] w;
 input en;
-output reg [0:7] y;
+output reg [7:0] y;
 integer k;
 always @(w or en)
     for(k = 0; k <= 7; k=k+1)
