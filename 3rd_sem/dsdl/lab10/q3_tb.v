@@ -4,13 +4,14 @@ module q3_tb();
 reg j,k,clk,reset;
 wire q;
 q3 ques(j,k,clk,reset,q);
+always #5 clk= (~clk);
+initial begin
+	clk=0;
+	#150 $finish;
+end
 initial begin
 	$dumpfile("q3_tb.vcd");
 	$dumpvars(0,q3_tb);
-	clk=0;
-	forever #20 clk= (~clk);
-end
-initial begin
 	j=1;k=1; reset=1;#20;
     	j=1;k=0;reset=0;#20;
     	j=0;k=1; reset=1;#20;
