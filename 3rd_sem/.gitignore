@@ -9,6 +9,8 @@
 *.fdb_latexmk
 *.bbl
 *.blg
+*.out
+*.snm
 
 
 #others
