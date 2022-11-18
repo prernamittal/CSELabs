@@ -7,6 +7,9 @@
 *.out*.snm
 *.synctex.gz
 *.fdb_latexmk
+*.bbl
+*.blg
+
 
 #others
 *.exe
