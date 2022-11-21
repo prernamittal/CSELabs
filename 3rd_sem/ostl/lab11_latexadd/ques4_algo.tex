@@ -43,13 +43,14 @@
     \KwData{A set C=$\{c_1,c_2\ldots c_r\}$of denominations of coins where ${c_1}>{c_2}>\ldots>c_r$ and a positive number n.}
     \KwResult{A list of coins $d_1, d_2\ldots d_k$ such that $\sum_{i=1}^{k}, d_i=n$ and k is minimized.}
     $C\leftarrow\emptyset$;\\
-    for $i\leftarrow1$ to r do\\
-    \While{$n \geq c_i$}{
+    \For{$i \leftarrow 1$ to $r$}{
+			\While{$n \geq c_i$}{
 				$C \leftarrow C \cap \{c_i\};$
 				
 				$n \leftarrow n - c_i;$
 			}
-		\Return{C;}
+		}
+    \Return{C;}
 \end{algorithm}
 \newpage
 
