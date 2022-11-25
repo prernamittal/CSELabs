@@ -1,0 +1,15 @@
+<html ng-app="myModule">
+    <head>
+        <script src="angular.js"></script>
+        <script src="product.js"></script>
+    </head>
+    <body>
+        <div ng-controller="myController">
+
+            Price: <input type="number" ng-model="Price"><br>
+            Quantity: <input type="number" ng-model="Quantity"><br>
+            <br>
+            Product: {{Price*Quantity}}
+            </div>
+    </body>
+</html>

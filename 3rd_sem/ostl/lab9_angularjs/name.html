@@ -1,0 +1,15 @@
+<html ng-app="myModule">
+    <head>
+        <script src="angular.js"></script>
+        <script src="name.js"></script>
+    </head>
+    <body>
+        <div ng-controller="myController">
+
+            First Name: <input type="text" ng-model="firstName"><br>
+            Last Name: <input type="text" ng-model="lastName"><br>
+            <br>
+            Full Name: {{firstName + " " + lastName}}
+            </div>
+    </body>
+</html>
