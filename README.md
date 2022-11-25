@@ -1,4 +1,4 @@
-# MIT-CSE-LABS
+# CSELabs
 <h2><b>3rd Semester :</h2></b>
 
 <li>Data Structures and Applications Lab (DSAL) : C programming

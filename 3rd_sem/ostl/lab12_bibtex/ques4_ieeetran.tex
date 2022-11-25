@@ -1,0 +1,58 @@
+\documentclass[a4paper,12pt]{IEEEtran}
+\usepackage[authoryear]{natbib}
+\usepackage[boxed,linesnumbered]{algorithm2e}
+\usepackage{graphicx}
+\begin{document}
+\section{SLAM Research}
+The resources \citep{a1678144} and \citep{a938381} might be helpful.
+\section{Table}
+\begin{table*}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Day&9-9:50&9-9:50&10:50-11:05\\ \hline
+    Mon&&&\\ \hline
+    Tue&&&\\ \hline
+\end{tabular}
+\end{table*}
+
+\section{equations}
+This is an equation\\
+$E=mc^2$
+\section{algorithm}
+\begin{algorithm}
+    \caption{Algorithm to Demonstrate Different Ifs}
+    \KwData{Some input data}
+    \KwResult{Same for output data}
+    \tcc{this is a comment}
+    initialization\;
+    \If{this is true}{
+    we do that, else nothing\;
+    \eIf{we agree that}{
+    we do that\;
+    }{
+    else we will do a more complicated if using else if\;
+    \uIf{this first condition is true}{
+    we do that\;
+    }
+    \uElseIf{this second condition is true}{
+    this is done
+    }
+    \ElseIf{this other condition is true}{
+    this is done
+    }
+    \Else{
+    in other case, we do this
+    }
+    }
+    }
+    \end{algorithm}
+\section{graphics}
+\begin{figure*}[ht]
+    \centering
+    \includegraphics{cat.jpeg}
+    \label{cat}
+\end{figure*}
+\bibliographystyle{abbrvnat}
+\bibliography{ref}
+\end{document}

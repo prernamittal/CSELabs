@@ -8,7 +8,7 @@ q1 stage1(t[0],clk,reset,t[1]);
 q1 stage2(t[1],clk,reset,t[2]);
 q1 stage3(t[2],clk,reset,t[3]);
 q1 stage4(t[3],clk,reset,t[4]);
-q1 stage4(t[4],clk,reset,out);
+q1 stage5(t[4],clk,reset,out);
 endmodule
 
 //Shift Register can be made using only D-type flip-Flops, one flip-Flop for each data bit.
