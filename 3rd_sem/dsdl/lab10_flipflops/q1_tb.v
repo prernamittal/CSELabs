@@ -4,10 +4,10 @@ module q1_tb();
 reg d,clk,reset;
 wire q;
 q1 ques(d,clk,reset,q);
-always #5 clk= (~clk);
+always #10 clk= (~clk);
 initial begin	
 	clk=0;
-	#150 $finish;
+	#80 $finish;
 end
 initial begin
 	$dumpfile("q1_tb.vcd");

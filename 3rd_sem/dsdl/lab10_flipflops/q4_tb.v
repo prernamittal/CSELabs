@@ -5,10 +5,10 @@ reg [4:0]in;
 reg clk,reset;
 wire [4:0]out;
 q4 ques(in,out,clk,reset);
-always #5 clk= (~clk);
+always #10 clk= (~clk);
 initial begin
 	clk=0;
-	#150 $finish;
+	#80 $finish;
 end
 initial begin
 	$dumpfile("q4_tb.vcd");
