@@ -1,4 +1,4 @@
-module twotofour(w,en,y);
+```module twotofour(w,en,y);
 input [1:0]w;
 input en;
 outputreg [0:3]y;
@@ -81,6 +81,6 @@ threeto8 s0(w[2:0],t1,y[0:7]);
 threeto8 s1(w[2:0],t2,y[8:15]);
 endmodule
 
-
+```
 
 

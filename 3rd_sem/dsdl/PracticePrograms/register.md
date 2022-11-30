@@ -1,4 +1,4 @@
-module fivebitreg(in, clk, reset,out);
+```module fivebitreg(in, clk, reset,out);
 input [4:0]in;
 input clk,reset;
 output [4:0]out;
@@ -46,3 +46,4 @@ dff s2(q[3],clk,reset,q[2]);
 dff s3(q[2],clk,reset,q[1]);
 dff s4(q[1],clk,reset,q[0]);
 endmodule
+```

@@ -1,4 +1,4 @@
-module mux2x1(w,s,f);
+```module mux2x1(w,s,f);
 input [1:0]w;
 output reg f;
 always@(w or s)
@@ -66,3 +66,4 @@ and(t1,y[1],w[1]);
 and(t8,y[8],w[8]);
 or(t1,t2,t3,.....t9);
 endmodule
+```

@@ -1,4 +1,4 @@
-module dff(d,clk,reset,q);
+```module dff(d,clk,reset,q);
 input d,clk,reset;
 output reg q;
 always@(posedge clk or posedge reset)
@@ -35,4 +35,4 @@ else
 q=~q;
 end end 
 endmodule
-
+```
