@@ -1,107 +1,67 @@
-import java.util.*;
-class shop
-{
-    int materials;
-    boolean available = false;
-    public synchronized int get()
-    {
-        while (available==false)
-        {
-            try
-            {
+class Shop{
+    int n=0;
+    boolean value=false;
+    synchronized int get(){
+        while(!value){
+            try{
                 wait();
             }
-            catch (InterruptedException e)
-            {
+            catch(InterruptedException e){
                 System.out.println("Interrupted");
-            }
-        }
-        available = false;
-        notifyAll();
-        return materials;
+            }}
+            System.out.println("Got: "+n);
+            value=false;
+            notify();
+            return n;
     }
-    public synchronized void put(int value)
-    {
-        while (available==true)
-        {
-            try
-            {
+    synchronized void put(int n){
+        while(value){
+            try{
                 wait();
             }
-            catch (InterruptedException e)
-            {
+            catch(InterruptedException e){
                 System.out.println("Interrupted");
-            }
-        }
-        materials = value;
-        available = true;
-        notifyAll();
+            }}
+            this.n=n;
+            value=true;
+            System.out.println("Put: "+n);
+            notify();
     }
 }
-class cons extends Thread
-{
-    shop shop;
-    int n;
-    public cons(shop s)
-    {
-        shop = s;
+class Producer implements Runnable{
+    Shop shop;
+    Thread t;
+    Producer(Shop shop){
+        this.shop=shop;
+        t=new Thread (this, "Producer");
     }
-    void setn(int n)
-    {
-        this.n=n;        
-    }
-    public void run()
-    {
-        int value = 0;
-        for (int i=0; i<n; i++)
-        {
-            value = shop.get();
-            System.out.println("Consumer got: " + value);
+    public void run(){
+        int i=0;
+        while(true){
+            shop.put(i++);
         }
     }
 }
-class prod extends Thread
-{
-    shop shop;
-    int n;
-    public prod(shop s)
-    {
-        shop = s;
+class Consumer implements Runnable{
+    Shop shop;
+    Thread t;
+    Consumer(Shop shop){
+        this.shop=shop;
+        t=new Thread(this,"Consumer");
     }
-    void setn(int n)
-    {
-        this.n=n;        
-    }
-    public void run()
-    {
-        for (int i=0; i<n; i++)
-        {
-            shop.put(i);
-            System.out.println("Producer got: " + i);
-            try
-            {
-                sleep((int)(Math.random()*100));
-            }
-            catch (InterruptedException e)
-            {
-                System.out.println("Interrupted");
-            }
+    public void run(){
+        while(true){
+            shop.get();
         }
     }
 }
-public class prog3
-{
-    public static void main(String[] args)
-    {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter n: ");
-        int n = sc.nextInt();
-        shop s = new shop();
-        prod p = new prod(s);
-        p.setn(n);
-        cons c = new cons(s);
-        c.setn(n);
-        p.start();
-        c.start();
+public class prog3{
+    public static void main(String[] args){
+        Shop shop=new Shop();
+        Producer p= new Producer(shop);
+        Consumer c=new Consumer(shop);
+        p.t.start();
+        c.t.start();
+        System.out.println("Press Ctr-C to Stop");
     }
 }

@@ -12,7 +12,7 @@ class Tables extends Thread
     }
     public void run()
     {
-        for( int i=1; i<=10;i++)
+        for(int i=1; i<=10;i++)
         {
             table=table+" "+(i*n);
         }
@@ -37,6 +37,6 @@ public class prog1
         }
         System.out.println("Table of 5: "+obj1.table);
         System.out.println("Table of 7: "+obj2.table);
-        System.out.println("Table of"+n +" :" +objn.table);
+        System.out.println("Table of "+n +" :" +objn.table);
     }
 }

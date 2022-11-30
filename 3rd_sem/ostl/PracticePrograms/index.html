@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>practice</title>
+    </head>
+    <body>  
+        <h2 style="color:rgb(207, 22, 183)"> Get all marked checkboxes value </h2>  
+        <h4> GROCERY LIST</h4>  
+        Potato: <input type="checkbox" id="check1" name="pl" value="Potato">  <br>
+        Tomato: <input type="checkbox" id="check2" name="pl" value="Tomato">  <br>
+        Chips: <input type="checkbox" id="check3" name="pl" value="Chips">   <br>
+        Coffee: <input type="checkbox" id="check4" name="pl" value="Coffee">   <br><br>
+        <button id="btn">Submit</button> <br>  <br>
+        Checked Items:
+        
+        <script>  
+        document.getElementById('btn').onclick = function() {  
+        var checked = document.getElementsByName('pl');  
+        for (var checkbox of checked) {  
+            if (checkbox.checked)  
+            document.body.append(checkbox.value + ' ');  
+        }  
+        }  
+        </script>
+    </body>
+</html>

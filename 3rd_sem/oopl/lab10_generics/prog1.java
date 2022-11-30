@@ -1,6 +1,6 @@
 //using generic method
 import java.util.*;
-class prog1
+public class prog1
 {
     static <T> void display(T arr[])
     {
