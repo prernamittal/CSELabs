@@ -1,4 +1,5 @@
-```module fourto2(w,y,z);
+```
+module fourto2(w,y,z);
 input [3:0]w;
 output reg [1:0]y;
 output reg z;

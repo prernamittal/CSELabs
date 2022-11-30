@@ -1,4 +1,5 @@
-```module fivebitreg(in, clk, reset,out);
+```
+module fivebitreg(in, clk, reset,out);
 input [4:0]in;
 input clk,reset;
 output [4:0]out;

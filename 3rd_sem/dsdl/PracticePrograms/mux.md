@@ -1,4 +1,5 @@
-```module mux2x1(w,s,f);
+```
+module mux2x1(w,s,f);
 input [1:0]w;
 output reg f;
 always@(w or s)

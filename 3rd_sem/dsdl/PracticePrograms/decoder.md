@@ -1,4 +1,5 @@
-```module twotofour(w,en,y);
+```
+module twotofour(w,en,y);
 input [1:0]w;
 input en;
 outputreg [0:3]y;
