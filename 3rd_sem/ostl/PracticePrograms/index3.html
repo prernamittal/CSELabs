@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="right" style="text-align: right; float: right;">
+    Name: <input type="text" id="name"><br>
+    passsword: <input type="password" id="pwd"><br>
+    <input type="reset" onclick="res()" value="Reset">
+    Phone: <input type="text" id="num"><br>
+    <textarea id="txt" style="width:200px;">
+    </textarea><br>
+    <input type="submit" onclick="check()" value="Submit">
+    </div>
+    <div class="left" style="text-align:left; float: left;">
+        <img src="cat.jpg">
+    </div><br><br>
+    <script>
+    function check(){
+        var num=document.getElementById('num').value;
+        if(num.length!=10)
+            alert("incorrect phone number");
+        else if(isNaN(num))
+            alert("incorrect input");
+        else
+            var textArea = document.getElementById("txt");
+            var len = num.length;
+            var last3 = num[len -3] + num[len -2] + num[len -1];
+            textArea.innerText = last3;
+    }
+    function res(){
+        var pwd=document.getElementById('pwd');
+        pwd.value="";
+    }
+    </script>
+    
+</body>
+</html>

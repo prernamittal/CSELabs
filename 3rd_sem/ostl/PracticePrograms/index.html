@@ -3,23 +3,44 @@
         <title>practice</title>
     </head>
     <body>  
-        <h2 style="color:rgb(207, 22, 183)"> Get all marked checkboxes value </h2>  
-        <h4> GROCERY LIST</h4>  
-        Potato: <input type="checkbox" id="check1" name="pl" value="Potato">  <br>
-        Tomato: <input type="checkbox" id="check2" name="pl" value="Tomato">  <br>
-        Chips: <input type="checkbox" id="check3" name="pl" value="Chips">   <br>
-        Coffee: <input type="checkbox" id="check4" name="pl" value="Coffee">   <br><br>
-        <button id="btn">Submit</button> <br>  <br>
+        <!-- <dialog id="imgDisDialog">
+            <div id="imageDisplays"></div>
+        </dialog> -->
+        <h2 style="color: rgb(183, 79, 192);"> Get all marked checkboxes value </h2>  
+        <h4> GROCERY LIST</h4> 
+        Cat: <input type="checkbox" id="check1" name="pl" value="cat">  <br>
+        Pup: <input type="checkbox" id="check2" name="pl" value="cat">  <br>
+        Chips: <input type="checkbox" id="check3" name="pl" value="cat">   <br>
+        Coffee: <input type="checkbox" id="check4" name="pl" value="cat">   <br><br>
+        <button id="btn" onclick="imgSet()">Submit</button> <br>  <br>
         Checked Items:
+        <!-- <img src="" id="imgBox"> -->
         
         <script>  
-        document.getElementById('btn').onclick = function() {  
-        var checked = document.getElementsByName('pl');  
-        for (var checkbox of checked) {  
-            if (checkbox.checked)  
-            document.body.append(checkbox.value + ' ');  
+        function imgSet() {  
+            var images = "";
+            var checked = document.getElementsByName('pl');  
+            // let dialog = document.getElementById("imgDisDialog");
+            for (var checkbox of checked) {  
+                if (checkbox.checked)  {
+                    images = images + "<br><img src="+checkbox.value+".jpg>";
+                }
+            }  
+            var Mywindow = window.open("","img","width=500,height=500");
+            Mywindow.document.write(images);
         }  
-        }  
-        </script>
+
+            // function imgSet(imgName) {
+            //     let imgBox = document.getElementById("imgBox");
+            //     if (imgName == "cat") 
+            //         imgBox.src = "cat.jpg";
+                
+            //     else if (imgName == "tomato") 
+            //         imgBox.src = "tomato.jpg";
+                
+            // }
+
+        </script>      
+
     </body>
 </html>

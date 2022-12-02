@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>practice2</title>
+    </head>
+    <body>  
+        <h4>SAMPLE WEBPAGE</h4>  
+        <form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
+            <input type="number"  id="a" name="a" value="0">
+            <input type="number" id="b" name="b" value="0">
+            =
+            <output name="x" for="a+b"></output>
+            <br><br>
+            <input type="submit">
+        </form>
+        <label>cars:</label>
+            <select>
+            <option>audi</option>
+            <option>ferrari</option>
+        </select><br><br>
+        Select option:<br>
+       <label>option a:</label>  <input type="radio" id="radio1" name="opa" value = "correct"><br>
+        <button id="btn" onclick="check()">check</button>
+        <script>
+            function check(){
+                alert("correct");
+            }
+        </script>
+        <h2>form validation</h2>
+        <form onsubmit="return validate()">
+            Name: <input type="text" id="fname">
+            <input type="submit" value="Submit">
+        </form>
+        <script>
+            function validate(){
+                var x=document.getElementById("fname").value;
+                if(!x)
+                alert("Please enter name!");
+            }
+        </script>
+
+
+
+        
+
+    
+    </body>
+</html>

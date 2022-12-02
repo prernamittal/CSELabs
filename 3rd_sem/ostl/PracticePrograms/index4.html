@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" class="inpBox" id="box1" onfocusout="recordData()">
+    <input type="text" class="inpBox" id="box2" onfocusout="recordData()">
+    <input type="text" class="inpBox" id="box3" onfocusout="recordData()">
+    <img src="" alt="" id="imgDisp">
+    <a href="" id="link" target="_blank">Test</a>
+
+    <textarea id="out"></textarea>
+    <div id="outDiv"></div>
+
+
+    <script>
+        function recordData() {
+
+            // document.getElementById("outDiv").innerText =  document.getElementById("box1").value;
+
+            // var inpBoxes = document.getElementsByClassName("inpBox");
+            // var empty = 0;
+            // for(var i=0;i<inpBoxes.length;i++) {
+            //     if ( !inpBoxes[i].value)
+            //         empty = 1;
+            // }
+            // if (empty == 0)
+            // document.getElementById("outDiv").innerText = "Not empty";
+            // else
+            // document.getElementById("outDiv").innerText = "Atleast one is empty";
+
+            var data = document.getElementById("box1").value;
+            if (data == "cat")
+                document.getElementById("imgDisp").src = "cat.jpg";
+                document.getElementById("link").href = "github.com/prernamittal";
+                document.getElementById("imgDisp").setAttribute("style", "width:100px;");
+
+            var MyWindow = window.open("","Prerna's window","width= 200, height=200");
+            MyWindow.document.write("<h1>Prerna Mittal</h1>");
+        }
+    </script>
+</body>
+</html>
