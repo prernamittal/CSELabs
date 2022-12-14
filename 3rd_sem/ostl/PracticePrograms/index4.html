@@ -11,17 +11,18 @@
     <input type="text" class="inpBox" id="box1" onfocusout="recordData()">
     <input type="text" class="inpBox" id="box2" onfocusout="recordData()">
     <input type="text" class="inpBox" id="box3" onfocusout="recordData()">
-    <img src="" alt="" id="imgDisp">
-    <a href="" id="link" target="_blank">Test</a>
-
     <textarea id="out"></textarea>
-    <div id="outDiv"></div>
+    <div id="outDiv"> 
+        <div id="indiv"></div>   
+        <img src="" id="imgDisp"><br>
+        <a href="" id="link" target="_blank">Test</a>
+    </div>
 
 
     <script>
         function recordData() {
 
-            // document.getElementById("outDiv").innerText =  document.getElementById("box1").value;
+            document.getElementById("indiv").innerText =  document.getElementById("box1").value;
 
             // var inpBoxes = document.getElementsByClassName("inpBox");
             // var empty = 0;
@@ -30,18 +31,17 @@
             //         empty = 1;
             // }
             // if (empty == 0)
-            // document.getElementById("outDiv").innerText = "Not empty";
+            // document.getElementById("indiv").innerText = "Not empty";
             // else
-            // document.getElementById("outDiv").innerText = "Atleast one is empty";
+            // document.getElementById("indiv").innerText = "Atleast one is empty";
 
             var data = document.getElementById("box1").value;
-            if (data == "cat")
+            if (data == "cat"){
                 document.getElementById("imgDisp").src = "cat.jpg";
-                document.getElementById("link").href = "github.com/prernamittal";
-                document.getElementById("imgDisp").setAttribute("style", "width:100px;");
-
-            var MyWindow = window.open("","Prerna's window","width= 200, height=200");
-            MyWindow.document.write("<h1>Prerna Mittal</h1>");
+                document.getElementById("link").href = "https://github.com/prernamittal";
+                document.getElementById("imgDisp").setAttribute("style", "width:200px;");               
+                var MyWindow = window.open("","Prerna's window","width= 200, height=200");
+                MyWindow.document.write("<h1>Prerna Mittal</h1>");}
         }
     </script>
 </body>
