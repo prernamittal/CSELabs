@@ -4,7 +4,7 @@ module ques1_tb();
 reg [3:0]w;
 reg [1:0]s;
 wire f;
-ques1 ques(w,s,f)
+ques1 ques(w,s,f);
 initial begin
 	$dumpfile("ques1_tb.vcd");
 	$dumpvars(0, ques1_tb);

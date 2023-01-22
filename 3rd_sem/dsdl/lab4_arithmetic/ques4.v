@@ -34,7 +34,7 @@ fulladd stage2(c2[2],c1[2],A[2],S[2],c1[3]);
 fulladd stage3(c2[3],c1[3],A[3],S[3],cout);
 endmodule
 
-module fulladder(S, C, A, B, C0);
+module fulladd(S, C, A, B, C0);
 input A, B, C0;
 output S, C;
 assign S = A ^ B ^ C0;

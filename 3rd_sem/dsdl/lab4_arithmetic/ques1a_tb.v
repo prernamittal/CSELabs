@@ -3,7 +3,7 @@
 module ques1a_tb();
 reg x,y;
 wire sum,carry;
-ques1 ques(x,y,sum,carry);
+ques1a ques(x,y,sum,carry);
 initial begin 
 	$dumpfile("ques1a_tb.vcd");
 	$dumpvars(0, ques1a_tb);

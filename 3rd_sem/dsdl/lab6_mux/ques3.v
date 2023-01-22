@@ -3,13 +3,14 @@ input [0:15]w;
 input [0:3]s;
 output f;
 wire [0:1]m;
-mux8x1 mux1(w[0:7],s[2:0],m[0]);
-mux8x1 mux1(w[8:15],s[2:0],m[1]);
-mux8x1 mux1(w[0:1],s[3],f);
+mux8x1 mux1(w[0:7],s[0:2],m[0]);
+mux8x1 mux2(w[8:15],s[0:2],m[1]);
+mux2x1 mux3(m,s[3],f);
+endmodule
 
 module mux8x1(w,s,f);
-input [7:0]w;
-input [2:0]s;
+input [0:7]w;
+input [0:2]s;
 output reg f;
 always @(w or s)
 case(s)
