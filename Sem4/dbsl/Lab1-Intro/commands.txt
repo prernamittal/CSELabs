@@ -6,7 +6,7 @@ emp_address varchar(30));
 
 //ques2:Insert five employees information
 INSERT into employee values(1,'prerna','noida');
-INSERT into employee values(2,'priya','patna');
+INSERT into employee values(2,'priya','mangalore');
 INSERT into employee values(3,'priyanka','manipal');
 INSERT into employee values(4,'preet','delhi');
 INSERT into employee values(5,'priyank','mumbai');
