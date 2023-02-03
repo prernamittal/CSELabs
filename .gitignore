@@ -20,3 +20,12 @@
 *.vcd
 *.vscode
 
+#esl
+*.axf
+*.build_log
+*.d
+*.lnp
+*.lst
+*.map
+*.o
+*.dep
