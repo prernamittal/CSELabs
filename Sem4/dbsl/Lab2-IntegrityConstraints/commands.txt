@@ -1,0 +1,22 @@
+//ques1-Create Employee table
+create table employee(
+EmpNo number(10) primary key,
+EmpName varchar (30) not null,
+gender varchar(10) not null check(gender='male' or gender='female'),
+salary number(20) not null,
+address varchar(30) not null,
+dNo number(7));
+
+//ques2-Create Department table
+create table department(
+DeptNo number(7) primary key,
+DeptName varchar (30) unique);
+
+//ques3-Make DNo of Employee as foreign key which refers to DeptNo of Department.
+alter table employee add constraint fdNo foreign key(dNo) references department(DeptNo);
+
+//ques4-Insert few tuples into Employee and Department which satisfies the above constraints
+insert into employee values(123,'prerna','female',12000,'noida',21090);
+insert into employee values(456,'preet','male',11000,'mumbai',53280);
+insert into department values(123,'compscience');
+insert into department values(456,'datascience');
