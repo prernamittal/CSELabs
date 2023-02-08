@@ -59,4 +59,6 @@ select course_id from takes where id=12345);
 select * from instructor where salary>40000 or salary<90000;
 
 //ques18
-select * from instructor where dept_name like '%ch%'; 
+select name from instructor where dept_name like '%ch%'; 
+
+//ques19
