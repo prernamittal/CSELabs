@@ -16,7 +16,47 @@ DeptName varchar (30) unique);
 alter table employee add constraint fdNo foreign key(dNo) references department(DeptNo);
 
 //ques4-Insert few tuples into Employee and Department which satisfies the above constraints
-insert into employee values(123,'prerna','female',12000,'noida',21090);
-insert into employee values(456,'preet','male',11000,'mumbai',53280);
 insert into department values(123,'compscience');
 insert into department values(456,'datascience');
+insert into employee values(123,'prerna','female',12000,'noida',21090);
+insert into employee values(456,'preet','male',11000,'mumbai',53280);
+
+//ques5-Try to insert few tuples into Employee and Department which violates some of the 
+above constraints
+insert into department values(123,'compengg');
+insert into employee values(174,'prerz','female',null,'delhi',21091);
+insert into employee values(214,'preetam','zzz',150000,'manipal',20091);
+
+//ques6-Try to modify/delete a tuple which violates a constraint.
+delete from department where DeptNo in (
+select dNo from employee group by dNo having count(*) > 1);
+
+//ques7-Modify the foreign key constraint of Employee table such that whenever a department 
+tuple is deleted, the employees belonging to that department will also be deleted.
+alter table employee drop constraint fdNo;
+alter table employee add constraint fdNo foreign key(dNo) references department(DeptNo) on delete cascade;
+
+//ques8-Create a named constraint to set the default salary to 10000 and test the constraint by 
+ inserting a new record.
+alter table employee
+modify(salary default 10000);
+insert into employee values(5,'pree','male',default,'udupi',2332);
+
+//ques9
+select name, dept_name from student;
+
+//ques10
+ select * from instructor;
+
+//ques11
+select * from course where credits=3;
+
+//ques12
+select course_id, title from course where course_id in(
+select course_id from takes where id=12345);
+
+//ques13
+select * from instructor where salary>40000 or salary<90000;
+
+//ques18
+select * from instructor where dept_name like '%ch%'; 
