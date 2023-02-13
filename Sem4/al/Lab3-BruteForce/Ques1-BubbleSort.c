@@ -6,6 +6,7 @@ void bubbleSort(int list[], int n){
     for (int j=0;j<n-i-1;j++) {
         ++opcount;
       if (list[j]>list[j+1]) {
+        ++opcount;
         t= list[j];
         list[j]= list[j+1];
         list[j+1]= t;
@@ -16,7 +17,7 @@ void bubbleSort(int list[], int n){
 }
 
 int main(){
-  int array[100], n;
+  int array[30], n;
   printf("Enter number of elements: ");
   scanf("%d", &n);
   printf("Enter %d integers:\n", n);

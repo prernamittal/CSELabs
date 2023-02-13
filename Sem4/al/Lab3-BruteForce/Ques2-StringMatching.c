@@ -30,9 +30,9 @@ int main() {
     scanf("%s", ptr);
     res = bruteForce(str, ptr, strlen(str), strlen(ptr));
     if (res == -1) {
-            printf("\nSearch ptr is not available\n");
+            printf("\ptr is not available\n");
     } else {
-            printf("\nSearch ptr is available\n");
+            printf("\ptr is available\n");
     }
     return 0;
 }

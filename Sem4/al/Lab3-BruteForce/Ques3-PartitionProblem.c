@@ -28,7 +28,6 @@ int main(){
     for(int i=0;i<n;i++){
         scanf("%d", &arr[i]);
     }
-	int s = sizeof(arr) / sizeof(arr[0]);
 	if (partition(arr, n) == true)
 		printf("\nCan be divided into two subsets of equal sum\n");
 	else
