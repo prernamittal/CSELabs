@@ -54,8 +54,10 @@ where salary>all
 (select salary from instructor where dept_name='Biology');
 
 //ques11-Find the departments that have the highest average salary
-select max(avg(salary)) as maxAvg from instructor
-group by dept_name;
+select dept_name from(select dept_name,avg(salary) avg_salary from instructor group by dept_name) 
+where avg_salary = (select max(avg_salary) 
+from (select dept_name,avg(salary) avg_salary 
+from instructor group by dept_name));
 
 //ques12-Find the names of those departments whose budget is lesser than the average salary 
 of all instructors.
@@ -87,6 +89,8 @@ from section r
 where t.course_id=r.course_id and r.year=2009);
 
 //ques16-Find all the students who have opted at least two courses offered by CSE department.
+select ID from (select ID, count(*) as c from takes 
+natural join course where dept_name = 'Comp. Sci.' group by ID) where c >= 2;
 
 //ques17-Find the average instructors salary of those departments where the average salary is 
 greater than 42000
