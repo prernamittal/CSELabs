@@ -46,17 +46,19 @@ insert into employee values(5,'pree','male',default,'udupi',2332);
 select name, dept_name from student;
 
 //ques10
- select * from instructor;
+select name from instructor where dept_name='Comp. Sci.';
 
 //ques11
-select * from course where credits=3;
+select title from course
+where dept_name='Comp. Sci.'
+and credits=3;
 
 //ques12
 select course_id, title from course where course_id in(
 select course_id from takes where id=12345);
 
 //ques13
-select * from instructor where salary>40000 or salary<90000;
+select name from instructor where salary between 40000 and 90000;
 
 //ques18
 select name from instructor where dept_name like '%ch%'; 
@@ -65,7 +67,14 @@ select name from instructor where dept_name like '%ch%';
 SELECT length(name) from student;
 
 //ques20
-select substr(dept_name,1,3) from department;
+select dept_name, substr(dept_name,3,3) from department;
 
 //ques21
 SELECT upper(name) from instructor;
+
+//add.ques7-Find all the instructors with the courses they taught.
+select name, course_id
+from instructor i, teaches t
+where i.id=t.id;
+
+//

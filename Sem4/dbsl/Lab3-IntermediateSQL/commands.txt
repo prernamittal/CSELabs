@@ -64,12 +64,11 @@ of all instructors.
 select dept_name from department where budget <all (select avg(salary) from instructor);
 
 //ques13-Find all courses taught in both the Fall 2009 semester and in the Spring 2010 semester
-select course_id, title from course where exists 
-(select course_id from section 
-where semester = 'Fall' and year = 2009 and course.course_id = section.course_id)
-intersect
-select course_id, title from course where exists (select course_id from section 
-where semester = 'Spring' and year = 2010 and course.course_id = section.course_id);
+select course_id from section s
+where semester='Fall' and year=2009 and
+exists (select course_id from section t 
+where semester='Spring' and year=2010 and
+s.course_id=t.course_id);
 
 //ques14-Find all students who have taken all courses offered in the Biology department.
 select name from student where exists
@@ -82,12 +81,6 @@ select title from course where course_id in
 group by course_id
 having count(course_id)<2);
 
-//(error in unique)
-select t.course_id from course t
-where not unique (select r.course_id 
-from section r
-where t.course_id=r.course_id and r.year=2009);
-
 //ques16-Find all the students who have opted at least two courses offered by CSE department.
 select ID from (select ID, count(*) as c from takes 
 natural join course where dept_name = 'Comp. Sci.' group by ID) where c >= 2;
@@ -99,6 +92,7 @@ group by dept_name
 having avg(salary)>42000;
 
 //ques18-Create a view all_courses consisting of course sections offered by Physics 
+<<<<<<< Updated upstream
 department in the Fall 2009, with the building and room number of each section.
 create view all_courses as 
 (select course.course_id, sec_id, building,room_number 
@@ -106,12 +100,30 @@ from course, section
 where course.course_id = section.course_id and 
 course.dept_name='Physics' and 
 section.semester='Fall' and section.year=2009);
+=======
+department in the Fall 2009, with the building and room number of each section
+create view all_courses as
+select course.course_id, sec_id, building, room_number
+from course, section
+where course.course_id=section.course_id
+and course.dept_name='Physics'
+and section.semester='Fall'
+and section.year=2009;
+>>>>>>> Stashed changes
 
 //ques19-Select all the courses from all_courses view
 select course_id from all_courses;
 
 //ques20-Create a view department_total_salary consisting of department name and total 
+<<<<<<< Updated upstream
 salary of that department
 create view department_total_salary as 
 (select dept_name, sum(salary) as total_salary 
 from instructor group by dept_name);
+=======
+salary of that department.
+create view department_total_salary(dept_name, total_salary)
+as select dept_name, sum(salary)
+from instructor
+group by dept_name;
+>>>>>>> Stashed changes
