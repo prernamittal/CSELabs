@@ -92,15 +92,6 @@ group by dept_name
 having avg(salary)>42000;
 
 //ques18-Create a view all_courses consisting of course sections offered by Physics 
-<<<<<<< Updated upstream
-department in the Fall 2009, with the building and room number of each section.
-create view all_courses as 
-(select course.course_id, sec_id, building,room_number 
-from course, section 
-where course.course_id = section.course_id and 
-course.dept_name='Physics' and 
-section.semester='Fall' and section.year=2009);
-=======
 department in the Fall 2009, with the building and room number of each section
 create view all_courses as
 select course.course_id, sec_id, building, room_number
@@ -109,21 +100,17 @@ where course.course_id=section.course_id
 and course.dept_name='Physics'
 and section.semester='Fall'
 and section.year=2009;
->>>>>>> Stashed changes
 
 //ques19-Select all the courses from all_courses view
 select course_id from all_courses;
 
 //ques20-Create a view department_total_salary consisting of department name and total 
-<<<<<<< Updated upstream
 salary of that department
 create view department_total_salary as 
 (select dept_name, sum(salary) as total_salary 
 from instructor group by dept_name);
-=======
-salary of that department.
+//or
 create view department_total_salary(dept_name, total_salary)
 as select dept_name, sum(salary)
 from instructor
 group by dept_name;
->>>>>>> Stashed changes
