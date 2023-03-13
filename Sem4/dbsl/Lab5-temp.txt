@@ -1,0 +1,82 @@
+//ques1.1-Retrieve the birth date and address of the employee(s) whose name is ‘John B. 
+Smith’. 
+select bdate, address from employee 
+where fname='John' and minit='B' and lname='Smith';
+
+//ques1.2-Retrieve the name and address of all employees who work for the 
+‘Research’ department
+select fname, lname, address from employee 
+where dno=(select dnumber from department
+where dname='Research');
+
+//ques2-For every project located in ‘Stanford’, list the project number, the controlling 
+department number, and the department manager’s last name, address, and birth 
+date
+select distinct pnumber, lname, dnum, address, bdate
+from project, employee
+where plocation='‘Stanford’; //check
+
+//ques3-Find all distinct salaries of employees.
+select distinct salary from employee;
+
+//ques4-For each employee, retrieve the employee’s first and last name and the first and 
+last name of his or her immediate supervisor.
+select e.fname,e.lname,s.fname,s.lname
+from employee e, employee s
+where e.ssn=s.super_ssn;
+
+//ques5-Make a list of all project numbers for projects that involve an employee whose 
+last name is ‘Smith’, either as a worker or as a manager of the department that 
+controls the project.
+select pnumber from project where dnum in
+(select dno from employee where lname='Smith');
+
+//ques6-Retrieve all employees who reside is in Houston, Texas.
+select fname, lname from employee
+where address like '%Houston, TX';
+
+//ques7-Show the resulting salaries if every employee working on the ‘ProductX’ project 
+is given a 10 percent raise
+select (salary+salary/10) from employee e, project p, works_on w
+where p.pnumber=w.pno
+and pname='‘ProductX’
+and w.essn=e.ssn; //check
+
+//ques8-Retrieve all employees in department 5 whose salary is between 30,000 and 
+40,000.
+select fname, lname from employee
+where dno=5
+and salary between 30000 and 40000;
+
+//ques9-Retrieve a list of employees and the projects they are working on, ordered by 
+department and, within each department, ordered alphabetically by last name, then 
+first name
+
+//ques10-Retrieve the names of all employees who do not have supervisors.
+
+//ques11-Retrieve the name of each employee who has a dependent with the same first name 
+and is the same sex as the employee
+
+//ques12-Retrieve the names of employees who have no dependents.
+
+//ques13-List the names of managers who have at least one dependent
+
+//ques14-Retrieve the Social Security numbers of all employees who work on project 
+numbers 1, 2, or 3.
+
+//ques15-Find the sum of the salaries of all employees, the maximum salary, the minimum 
+salary, and the average salar
+
+//ques16- Find the sum of the salaries of all employees of the ‘Research’ department, as 
+well as the maximum salary, the minimum salary, and the average salary in this 
+Department
+
+//ques17-For each project, retrieve the project number, the project name, and the number 
+of employees who work on that project.
+
+//ques18-For each project on which more than two employees work, retrieve the project 
+number, the project name, and the number of employees who work on the 
+project.
+
+//ques19-For each department that has more than five employees, retrieve the department 
+number and the number of its employees who are making more than 40,000.
