@@ -86,8 +86,7 @@ rno:=1;
 loop
 if rno>5 then exit;
 end if;
-select gpa into sgpa
-from studenttable
+select gpa into sgpa from studenttable
 where rno=rollno;
 if sgpa between 0 and 4 then
 dbms_output.put_line('F');
@@ -119,8 +118,6 @@ begin
 rno:=1;
 while(rno<6)
 loop
-if rno>5 then exit;
-end if;
 select gpa into sgpa
 from studenttable
 where rno=rollno;
@@ -149,18 +146,18 @@ declare
 i number:=1;
 rno studenttable.rollno%type;
 sgpa studenttable.gpa%type;
-max studenttable.gpa%type;
+maxg studenttable.gpa%type;
 begin
 rno:=1;
-select gpa into max from studenttable where rno=rollno;
+select gpa into maxg from studenttable where rno=rollno;
 for i in 1..5 loop
 select gpa into sgpa from studenttable where rno=rollno;
-if sgpa>max then
-max:=spga;
+if sgpa>maxg then
+maxg:=sgpa;
 end if;
 rno:=rno+1;
 end loop;
-dbms_output.put_line('max: '||max);
+dbms_output.put_line('max: '||maxg);
 end;
 /
 
