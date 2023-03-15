@@ -1,0 +1,53 @@
+//ques1-Retrieve the birth date and address of the employee(s) whose name is ‘John B. 
+Smith’
+select distinct employee.bdate, address from dependent, employee
+where employee.fname='John' and employee.lname='Smith';
+
+//Retrieve the name and address of all employees who work for the 
+Research department
+select fname, lname, address from 
+employee e, department d
+where e.ssn=d.mgr_ssn
+and dname='Research';
+
+//ques2-For every project located in ‘Stanford’, list the project number, the controlling 
+department number, and the department manager’s last name, address, and birth 
+date.
+select pnumber,lname, dnum, address, bdate
+from project, employee
+where plocation='Stafford';
+
+//ques3- Find all distinct salaries of employees
+select distinct salary from employee;
+
+///ques4-For each employee, retrieve the employee’s first and last name and the first and 
+last name of his or her immediate supervisor.
+select e.fname, e.lname, s.fname, s.lname
+from employee e, employee s
+where e.ssn=s.super_ssn;
+
+
+//ques5-Make a list of all project numbers for projects that involve an employee whose 
+last name is ‘Smith’, either as a worker or as a manager of the department that 
+controls the project
+select pnumber
+
+//ques6-
+
+//ques7-Show the resulting salaries if every employee working on the ‘ProductX’ project 
+is given a 10 percent raise
+select (salary+salary/10) from employee e, project p, department d
+where e.ssn=d.mgr_ssn and d.dnumber=p.dnum and pname='ProductX';
+
+//ques8-
+
+//ques9-Retrieve a list of employees and the projects they are working on, ordered by 
+department and, within each department, ordered alphabetically by last name, then 
+first name
+select fname, pname
+from (select dname from department d, employee e, project p,
+where e.ssn=d.mgr_ssn and d.dnumber=p.dnum
+order by fname)
+order by dname;
+
+

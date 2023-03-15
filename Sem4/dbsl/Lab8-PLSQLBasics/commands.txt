@@ -1,0 +1,175 @@
+--sample
+declare 
+message varchar(20):='Hello World';
+begin
+dbms_output.put_line(message);
+end;
+/
+
+--ques1
+create table studenttable(
+rollno number(2),
+gpa number(2,1));
+
+insert into studenttable values(1,5.8);
+insert into studenttable values(2,6.5);
+insert into studenttable values(3,3.4);
+insert into studenttable values(4,7.8);
+insert into studenttable values(5,9.5);
+
+declare
+rno studenttable.rollno%type;
+sgpa studenttable.gpa%type;
+begin
+rno:='&rollno';
+select gpa
+into sgpa
+from studenttable
+where rollno=rno;
+dbms_output.put_line('gpa: '||sgpa);
+end;
+/
+
+--ques2
+declare
+rno studenttable.rollno%type;
+sgpa studenttable.gpa%type;
+begin
+rno:='&rollno';
+select gpa into sgpa from studenttable
+where rollno=rno;
+if sgpa between 0 and 4 then
+dbms_output.put_line('F');
+elsif sgpa between 4 and 5 then
+dbms_output.put_line('E');
+elsif sgpa between 5 and 6 then
+dbms_output.put_line('D');
+elsif sgpa between 6 and 7 then
+dbms_output.put_line('C');
+elsif sgpa between 7 and 8 then
+dbms_output.put_line('B');
+elsif sgpa between 8 and 9 then
+dbms_output.put_line('A');
+else
+dbms_output.put_line('A+');
+end if;
+end;
+/
+
+--ques3
+declare
+issue date:= '&issue';
+return date:='&return';
+days number(2);
+fine number(5);
+begin
+days:=(return-issue);
+if days between 0 and 7 then
+fine:=0;
+elsif days between 8 and 15 then
+fine:=(days-7)*1;
+elsif days between 16 and 30 then
+fine:=(8*1)+(days-15)*2;
+else
+fine:=(8*1)+(15*2)+(days-(15*2))*5;
+end if;
+dbms_output.put_line('fine: '||fine);
+end;
+/
+
+--ques4
+declare
+rno studenttable.rollno%type;
+sgpa studenttable.gpa%type;
+begin
+rno:=1;
+loop
+if rno>5 then exit;
+end if;
+select gpa into sgpa
+from studenttable
+where rno=rollno;
+if sgpa between 0 and 4 then
+dbms_output.put_line('F');
+elsif sgpa between 4 and 5 then
+dbms_output.put_line('E');
+elsif sgpa between 5 and 6 then
+dbms_output.put_line('D');
+elsif sgpa between 6 and 7 then
+dbms_output.put_line('C');
+elsif sgpa between 7 and 8 then
+dbms_output.put_line('B');
+elsif sgpa between 8 and 9 then
+dbms_output.put_line('A');
+else
+dbms_output.put_line('A+');
+end if;
+rno:=rno+1;
+end loop;
+end;
+/
+
+--ques5
+alter table studenttable add lettergrade varchar(2);
+
+declare
+rno studenttable.rollno%type;
+sgpa studenttable.gpa%type;
+begin
+rno:=1;
+while(rno<6)
+loop
+if rno>5 then exit;
+end if;
+select gpa into sgpa
+from studenttable
+where rno=rollno;
+if sgpa between 0 and 4 then
+update studenttable set lettergrade='F' where rollno=rno;
+elsif sgpa between 4 and 5 then
+update studenttable set lettergrade='E' where rollno=rno;
+elsif sgpa between 5 and 6 then
+update studenttable set lettergrade='D' where rollno=rno;
+elsif sgpa between 6 and 7 then
+update studenttable set lettergrade='C' where rollno=rno;
+elsif sgpa between 7 and 8 then
+update studenttable set lettergrade='B' where rollno=rno;
+elsif sgpa between 8 and 9 then
+update studenttable set lettergrade='A' where rollno=rno;
+else
+update studenttable set lettergrade='A+' where rollno=rno;
+end if;
+rno:=rno+1;
+end loop;
+end;
+/
+
+--ques6
+declare 
+i number:=1;
+rno studenttable.rollno%type;
+sgpa studenttable.gpa%type;
+max studenttable.gpa%type;
+begin
+rno:=1;
+select gpa into max from studenttable where rno=rollno;
+for i in 1..5 loop
+select gpa into sgpa from studenttable where rno=rollno;
+if sgpa>max then
+max:=spga;
+end if;
+rno:=rno+1;
+end loop;
+dbms_output.put_line('max: '||max);
+end;
+/
+
+
+
+
+
+
+
+
+
+

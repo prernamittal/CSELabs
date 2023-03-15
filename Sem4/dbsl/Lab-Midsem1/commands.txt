@@ -1,0 +1,41 @@
+create table service_request(
+srno number(10) primary key,
+request varchar(20),
+sr_date date);
+
+create table assign(
+srno number(10),
+department varchar(20),
+primary key(srno, department),
+foreign key(srno) references service_request(srno));
+
+insert into service_request values(5,'road','03-jul-18');
+insert into service_request values(6,'streetlight','01-jan-22');
+insert into service_request values(7,'signboard','01-jul-22');
+insert into service_request values(8,'wastedisposal','24-apr-22');
+
+insert into assign values(5,'pwd');
+insert into assign values(5,'nhrepair');
+insert into assign values(5,'bridges');
+insert into assign values(6,'pwd');
+insert into assign values(7,'pwd');
+insert into assign values(7,'bridges');
+insert into assign values(7,'nhrepair');
+
+//ques1
+select s.srno, s.request,s.sr_date from 
+service_request s, assign a
+where s.srno=a.srno
+and a.department='pwd'
+order by s.sr_date desc;
+
+//ques2
+select srno, request, sr_date from service_request where srno in
+(select distinct srno from assign
+group by srno
+having count(department)>1);
+
+
+
+
+
