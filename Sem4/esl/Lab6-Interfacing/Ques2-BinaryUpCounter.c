@@ -1,7 +1,9 @@
 #include <LPC17xx.h>
+unsigned int j;
+unsigned long LED;
 int main(void){
-	unsigned int j;
-	unsigned long LED;
+	SystemInit(); 
+	SystemCoreClockUpdate();
 	LPC_PINCON->PINSEL0 &= 0xFF0000FF;
 	LPC_GPIO0->FIODIR |= 0x00000FF0;
 	LPC_PINCON->PINSEL4 &= 0xFCFFFFFF;
