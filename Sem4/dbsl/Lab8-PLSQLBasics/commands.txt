@@ -161,7 +161,64 @@ dbms_output.put_line('max: '||maxg);
 end;
 /
 
+--ques7
+declare
+rno studenttable.rollno%type;
+sgpa studenttable.gpa%type;
+begin
+rno:=1;
+loop
+if rno>5 then goto leave;
+end if;
+select gpa into sgpa from studenttable
+where rno=rollno;
+if sgpa between 0 and 4 then
+dbms_output.put_line('F');
+elsif sgpa between 4 and 5 then
+dbms_output.put_line('E');
+elsif sgpa between 5 and 6 then
+dbms_output.put_line('D');
+elsif sgpa between 6 and 7 then
+dbms_output.put_line('C');
+elsif sgpa between 7 and 8 then
+dbms_output.put_line('B');
+elsif sgpa between 8 and 9 then
+dbms_output.put_line('A');
+else
+dbms_output.put_line('A+');
+end if;
+rno:=rno+1;
+end loop;
+<<leave>>
+dbms_output.put_line('invalid roll number');
+end;
+/
 
+--ques8
+declare
+MultipleInstructors Exception;
+NoInstructor Exception
+ins instructor%rowtype;
+nam instructor.name%type;
+n number(5);
+begin
+nam:='&name';
+select count(id) into n from instructor group by name=nam;
+if n>1 then raise MultipleInstructors;
+elsif n=0 then raise NoInstructor;
+else
+select * into inst from instructor where instructor.name=nam;
+dbms_output.put_line(ins.id||ins.name||ins.dept_name||ins.salary);
+end if;
+Exception
+when MultipleInstructors then
+dbms_output.put_line('Multiple Instructors with same name found!');
+when NoInstructor then
+dbms_output.put_line('No Instructors for given name!');
+end;
+/
+
+--ques9
 
 
 
