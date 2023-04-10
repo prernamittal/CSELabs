@@ -1,37 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 void merge(int *arr, int first, int mid, int last){
+    int i=0,j=0,opcount=0,k=first;
     int na=mid-first+1;
     int nb=last-mid;
     int a[na],b[nb];
     for(int i=0;i<na;i++){
-        a[i]=a[i+first];
+        a[i]=arr[i+first];
     }
     for(int i=0;i<nb;i++){
-        b[i]=b[i+mid+1];
+        b[i]=arr[i+mid+1];
     }
-    int i=0,j=0,opcount=0,k=first;
     while(i<na && j<nb){
         opcount++;
         if(a[i]<b[j]){
-            a[k]=a[i];
+            arr[k]=a[i];
             i++;
         }
         else{
-            b[k]=b[j];
+            arr[k]=b[j];
             j++;
         }
         k++;
     }
     while(i<na){
         opcount++;
-        a[k]=a[i];
+        arr[k]=a[i];
         i++;
         k++;
     }
     while(j<nb){
         opcount++;
-        b[k]=b[j];
+        arr[k]=b[j];
         j++;
         k++;
     }
