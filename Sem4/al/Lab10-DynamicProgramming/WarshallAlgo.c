@@ -1,5 +1,11 @@
 #include<stdio.h>
-int max(int, int);
+
+int max(int a, int b) {
+    if (a > b)
+        return a;
+    else
+        return b;
+}
 
 void warshall(int p[10][10], int n) {
     int i, j, k;
@@ -7,13 +13,6 @@ void warshall(int p[10][10], int n) {
         for (i = 1; i <= n; i++)
             for (j = 1; j <= n; j++)
                 p[i][j] = max(p[i][j], p[i][k] && p[k][j]);
-}
-
-int max(int a, int b) {
-    if (a > b)
-        return (a);
-    else
-        return (b);
 }
 
 void main() {
@@ -28,7 +27,7 @@ void main() {
         p[u][v] = 1;
     }
 
-    printf("\n Matrix of input data: \n");
+    printf("\nOriginal matrix: \n");
     for (i = 1; i <= n; i++) {
         for (j = 1; j <= n; j++)
             printf("%d\t", p[i][j]);
