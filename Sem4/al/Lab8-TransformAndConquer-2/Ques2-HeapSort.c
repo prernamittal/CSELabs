@@ -42,7 +42,7 @@ printf("\n");
 }
 
 int main() {
-int n, opcount=0;
+int n;
 printf("Enter n:");
 scanf("%d", &n);
 int arr[n];
