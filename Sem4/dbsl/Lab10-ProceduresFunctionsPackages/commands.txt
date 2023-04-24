@@ -1,0 +1,145 @@
+--sample 
+drop function dep_count;
+create or replace function dep_count(d_name varchar2)
+return number as
+d_count number;
+begin
+	select count(*) into d_count
+	from instructor
+	where instructor.dept_name= d_name;
+return d_count;
+end;
+/
+
+declare
+begin
+dbms_output.put_line(dep_count('Comp. Sci.'));
+end;
+/
+
+
+--ques1:Write a procedure to display a message “Good Day to You”.
+create or replace procedure display is
+begin
+dbms_output.put_line('Good Day to You');
+end;
+ /
+
+declare
+begin
+display;
+end;
+/
+
+--ques2
+create or replace procedure info(dept instructor.dept_name%TYPE) is
+cursor s1 is select title from course where dept_name = dept;
+cursor s2 is select name from instructor where dept_name = dept;
+begin
+ dbms_output.put_line('Instructors: ');
+ for s IN s2 loop
+ dbms_output.put_line(s.name);
+ end loop;
+dbms_output.put_line('********************************');
+ dbms_output.put_line('Courses: ');
+for s IN s1
+ loop
+ dbms_output.put_line(s.title);
+ end loop; 
+end;
+/
+
+declare
+begin
+ info('Comp. Sci.');
+end;
+/
+
+--ques3
+create or replace procedure popular is
+cursor c1 is with temp(cid, c_count) AS(
+SELECT t.course_id, countdistinct ID) AS stud_count
+from takes t, course c
+where t.course_id = c.course_id
+group by t.course_id
+)
+select dept_name, MAX(c_count) AS max_count
+from temp t, course c
+where t.cid = c.course_id
+group by dept_name;
+begin
+ for c IN c1 loop
+ dbms_output.put_line('Department: ' || c.dept_name || ' no. of students: ' || c.max_count);
+ end loop;
+end;
+/
+
+declare
+begin 
+popular;
+end;
+/
+
+--ques4
+create or replace procedure display(dname VARCHAR) IS
+    cursor C1(d student.dept_name%TYPE) is select ID,name from student where dept_name = d;
+    cursor C2(d course.dept_name%TYPE) is select course_id, title from course where dept_name = d;
+begin
+    dbms_output.put_line('Student_ID Student_Name');
+    for i in C1(dname) loop
+    dbms_output.put_line(i.ID || ' ' || i.name);
+    end loop;
+    dbms_output.put_line('Course_ID Course_Title');
+    for i in C2(dname) loop
+     dbms_output.put_line(i.course_id || ' ' || i.title);
+    end loop;
+end;
+/
+
+declare
+begin
+    display('Comp. Sci.');
+end;
+/
+
+--ques5: Write a function to return the Square of a given number and call it from an anonymous block
+create or replace function sq(n number)
+return number as
+begin
+return n*n;
+end;
+/
+
+declare
+begin
+dbms_output.put_line(sq(10));
+end;
+/
+
+--ques6
+create or replace function highest
+return varchar
+as
+cursor c1 is
+with temp(maxsal, dept) as
+(select MAX(salary) as maxsal, dept_name
+from instructor
+group by dept_name)
+select name, maxsal, dept
+from temp, instructor
+where salary = maxsal;
+begin
+ for i in c1 loop
+ dbms_output.put_line('name: '||i.name ||'    department: '|| i.dept || '    highest salary: ' || i.maxsal);
+ end loop;
+return '';
+end;
+/
+
+declare
+ high VARCHAR(10);
+begin
+ high := highest;
+end;
+/
+
