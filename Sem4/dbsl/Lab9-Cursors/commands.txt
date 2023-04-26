@@ -1,0 +1,109 @@
+--ques1
+create table salary_raise(
+id number(5) primary key,
+raisedate date,
+amt number(5));
+
+declare
+d constant varchar(10):='03/03/2023';
+cursor c is select * from instructor;
+begin
+for inst in c loop
+insert into salary_raise values(inst.id, to_date(d,'dd/mm/yyyy'), inst.salary*0.05);
+exit when c%notfound;
+end loop;
+update instructor set salary=(salary*1.05);
+end;
+/
+
+--ques2
+declare
+cursor c is select * from student order by tot_cred asc;
+st student%rowtype;
+i number(2);
+begin
+i:=1;
+open c;
+loop fetch c into st;
+dbms_output.put_line(i||' '||st.id||' '||st.name||' '||st.dept_name||' '||st.tot_cred);
+i:=i+1;
+exit when c%rowcount>=10;
+end loop;
+close c;
+end;
+/
+
+--ques3
+
+
+--ques4
+DECLARE
+    CURSOR C IS SELECT * FROM takes WHERE course_id = 'CS-101';
+    creds student.tot_cred%TYPE;
+BEGIN
+    FOR I IN C
+    LOOP
+        SELECT tot_cred INTO creds FROM student WHERE ID = I.ID;
+        IF creds < 40 THEN
+            DELETE FROM takes WHERE ID = I.ID AND course_id = I.course_id;
+        END IF;
+    END LOOP;
+END;
+/
+
+--ques5
+update StudentTable set LetterGrade = 'F';
+declare
+    cursor c is select * from StudentTable for update;
+    G StudentTable.GPA%TYPE;
+begin
+    for i in c
+    loop
+        g := i.gpa;
+        if g between 0 and 4 then
+            update StudentTable SET LetterGrade = 'F' where current of c;
+        elsif g between 4 and 5 then
+            update StudentTable SET LetterGrade = 'E' where current of c;
+        elsif G between 5 and 6 then
+            update StudentTable SET LetterGrade = 'D' where current of c;
+        elsif G between 6 and 7 then
+            update StudentTable SET LetterGrade = 'C' where current of c;
+        elsif G between 7 and 8 then
+            update StudentTable SET LetterGrade = 'B' where current of c;
+        elsif G between 8 and 9 then
+            update StudentTable SET LetterGrade = 'A' where current of c;
+        elsif G between 9 and 10 then
+            UPDATE StudentTable SET LetterGrade = 'A+' where current of c;
+        end if;
+    end loop;
+end;
+/
+
+--ques6
+declare
+cursor curs(cid teaches.course_id%TYPE) is select * from instructor natural join teaches where course_id=cid;
+begin
+for temp in curs('CS-101')
+loop
+    dbms_output.put_line('Instructor ID:'||temp.id);
+    dbms_output.put_line('Instructor Name:'||temp.name);
+end loop;
+end;
+/
+
+--ques7
+declare
+    cursor curs_1(a_id advisor.i_id%type,c_id takes.course_id%type) is
+    select * name from ((student s natural join takes t) inner join advisor a
+    on (id=a.s_id)) where course_id = c_id and a_id=i_id;
+    cursor curs_2 is select * from (instructor natural join teaches);
+begin
+    for ins_info in curs_2
+        loop
+            for info in curs_1(ins_info.id,ins_info.course_id)
+                loop
+                    dbms_output.put_line(info.name);
+                end loop;
+        end loop;
+end;
+/
