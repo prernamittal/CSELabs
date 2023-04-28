@@ -13,12 +13,12 @@ int main(void)
 	LPC_GPIO2->FIODIR &= 0xFFFFEFFF;
 	while(1)
 	{
-		if(LPC_GPIO2->FIOPIN & 1<<12){
+		if(LPC_GPIO2->FIOPIN & 1<<12){//switch high
 		for(j=0;j<50;j++) 
 		clock_wise();
 		}
 		for(k=0;k<65000;k++); // Delay to show anti_clock Rotation 
-		if(!(LPC_GPIO2->FIOPIN & 1<<12)){
+		else {//switch low
 		for(j=0;j<50;j++) 
 		anti_clock_wise();
 		}
@@ -26,25 +26,19 @@ int main(void)
 	} // End of while(1)
 } // End of main
 
-void clock_wise(void)
-{
-	var1 = 0x00000008; //For Clockwise
-	 for(i=0;i<=3;i++) // for A B C D Stepping
-	 {
+void clock_wise(void){
+	var1 = 0x000000010; //For Clockwise
+	for(i=0;i<=3;i++){ // for A B C D Stepping
 		var1 = var1<<1; //For Clockwise
-		 LPC_GPIO0->FIOPIN = var1;
-		 
-		 for(k=0;k<3000;k++); //for step speed variation 
-	 }
+		LPC_GPIO0->FIOPIN = var1;
+		for(k=0;k<3000;k++); //for step speed variation 
+	}
 }
-void anti_clock_wise(void)
-{
+void anti_clock_wise(void){
 	var1 = 0x00000100; //For Anticlockwise
-	 for(i=0;i<=3;i++) // for A B C D Stepping
-	 {
-		 var1 = var1>>1; //For Anticlockwise
-		 LPC_GPIO0->FIOPIN = var1;
-		 
-		 for(k=0;k<3000;k++); //for step speed variation 
-	 }
+	for(i=0;i<=3;i++) // for A B C D Stepping{
+		var1 = var1>>1; //For Anticlockwise
+		LPC_GPIO0->FIOPIN = var1;
+		for(k=0;k<3000;k++); //for step speed variation 
+	}
 }
