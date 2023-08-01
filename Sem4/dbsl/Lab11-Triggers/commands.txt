@@ -1,0 +1,71 @@
+--sample program
+CREATE OR REPLACE trigger emp_trigger
+BEFORE DELETE ON employee
+FOR EACH ROW
+BEGIN
+insert into emp_delete values(:OLD.fname,
+:OLD.lname,
+:OLD.bdate);
+END;
+/
+
+create table emp_delete(
+fname varchar(20),
+lname varchar(20),
+bdate date);
+
+--ques1
+create or replace trigger logTakes
+before insert or update of ID, course_id, sec_id, semester, year, grade or delete on takes
+for each row
+begin
+case 
+when inserting then
+    insert into log_change_Takes 
+    values(sysdate,:NEW.ID, :NEW.course_id, :NEW.sec_id, :NEW.semester, :NEW.year, :NEW.grade);
+when updating or deleting then
+    insert into log_change_Takes 
+    values(sysdate,:OLD.ID, :OLD.course_id, :OLD.sec_id, :OLD.semester, :OLD.year, :OLD.grade);
+end case;
+end;
+/
+
+--ques2
+CREATE TABLE Old_Data_Instructor (
+    ID VARCHAR(5),
+    name VARCHAR(20),
+    dept_name VARCHAR(20),
+    salary NUMERIC(8,2),
+    PRIMARY KEY (ID));
+
+CREATE OR REPLACE TRIGGER logSalary
+BEFORE UPDATE OF salary ON instructor
+for each row
+BEGIN
+INSERT INTO Old_Data_Instructor VALUES (:OLD.ID, :OLD.name, :OLD.dept_name, :OLD.salary);
+END;
+/
+
+--ques3
+CREATE OR REPLACE TRIGGER instrInsert
+BEFORE INSERT ON instructor
+for each row
+DECLARE
+sal NUMBER;
+budg NUMBER;
+BEGIN
+IF LENGTH(TRIM(TRANSLATE(:NEW.name, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ' '))) > 0 THEN
+    RAISE_APPLICATION_ERROR(-20100,'Name must contain only alphabets');
+ELSE
+    IF :NEW.salary < 1 THEN
+        RAISE_APPLICATION_ERROR(-20100,'Salary must be greater than 0');
+    ELSE
+        SELECT SUM(salary) INTO sal FROM instructor WHERE dept_name = :NEW.dept_name;
+        SELECT budget INTO budg FROM department WHERE dept_name = :NEW.dept_name;
+        IF sal + :NEW.salary > budg THEN
+            RAISE_APPLICATION_ERROR(-20100,'Not enough department budget');  
+        END IF;
+    END IF;
+END IF;
+END;
+/
