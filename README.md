@@ -11,3 +11,9 @@
 <li>Algorithms Lab (AL) : C programming
 <li>Database Systems Lab (DBSL) : SQL
 <li>Embedded System Lab (ESL) : Assembly Language Programming
+
+<h2><b>5th Semester :</h2></b>
+
+<li>Compiler Design Lab (CDL) : C programming
+<li>Computer Networks Lab (CNL) : C programmingX
+<li>Operating System Lab (OSL) : C programming
