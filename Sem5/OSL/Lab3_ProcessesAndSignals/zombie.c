@@ -18,7 +18,7 @@ int main() {
 		n = 5;
 		break;
 	default:
-		// sleep(10);
+		sleep(10);
 		message = "This is the parent";
 		n = 3;
 		break;
