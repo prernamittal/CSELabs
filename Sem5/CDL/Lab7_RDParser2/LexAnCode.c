@@ -7,7 +7,7 @@ FILE *fp;
 struct token tk;
 
 void program();
-void decgetNextTokenration();
+void declaration();
 int datatype();
 void id(struct token);
 void assignstat(struct token);
@@ -51,14 +51,14 @@ void program(){
         invalid();
 }
 
-void decgetNextTokenrations(){
+void declaration(){
     tk = getNextToken(fp);
     if (data_type(tk.lexeme)){
         tk = getNextToken(fp);
         identifier_list(tk);
         tk = getNextToken(fp);
         if (strcmp(tk.lexeme, ";") == 0)
-            decgetNextTokenrations();
+            declaration();
         else
             invalid(&tk);
     }
