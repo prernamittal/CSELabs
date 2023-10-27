@@ -25,6 +25,9 @@ void factor();
 int relop();
 int addop();
 int mulop();
+int decision_stat();
+int looping_stat();
+void dprime();
 
 void invalid(){
     printf("-----------------ERROR!----------------\n");
@@ -64,7 +67,6 @@ void program(){
     else
         invalid();
 }
-
 
 void declarations(){
 	if(data_type()){
@@ -151,16 +153,19 @@ void statement_list(){
 }
 
 int statement(){
-	if(assign_stat()){
-		if(strcmp(tk.type,";")==0){
-			tk=getNextToken(fp);
-			return 1;
-		}
-		else
-			invalid();
-	}
-	else
-		return 0;
+    if (assign_stat()){
+        if (strcmp(tk.type, ";") == 0){
+            return 1;
+        }
+        else
+            invalid(";");
+    }
+    else if (decision_stat()){
+    }
+    else if (looping_stat()){
+    }
+    else
+        return 0;
 }
 
 void expn(){
@@ -266,6 +271,102 @@ int mulop(){
 		return 0;
 }
 
+int decision_stat(){
+    if (strcmp(tk.type, "if") == 0){
+        if (strcmp(tk.type, "(") == 0){
+            expn();
+            if (strcmp(tk.type, ")") == 0){
+                if (strcmp(tk.type, "{") == 0){
+                    statement_list();
+                    if (strcmp(tk.type, "}") == 0){
+                        dprime();
+                    }
+                    else
+                        invalid("}");
+                }
+                else
+                    invalid("{");
+            }
+            else
+                invalid(")");
+            return 1;
+        }
+        else
+            invalid("(");
+    }
+    else
+        return 0;
+}
+
+int looping_stat(){
+    if (strcmp(tk.type, "while") == 0){
+        if (strcmp(tk.type, "(") == 0){
+            expn();
+            if (strcmp(tk.type, ")") == 0){
+                if (strcmp(tk.type, "{") == 0){
+                    statement_list();
+                    if (strcmp(tk.type, "}") == 0)
+                        dprime();
+                    else
+                        invalid("}");
+                }
+                else
+                    invalid("{");
+            }
+            else
+                invalid(")");
+            return 1;
+        }
+        else
+            invalid("(");
+    }
+    else if (strcmp(tk.type, "for") == 0){
+        if (strcmp(tk.type, "(") == 0){
+            assign_stat();
+            if (strcmp(tk.type, ";") == 0){
+                expn();
+                if (strcmp(tk.type, ";") == 0){        
+                    assign_stat();
+                    if (strcmp(tk.type, ")") == 0){
+                        if (strcmp(tk.type, "{") == 0){
+                            statement_list();
+                            if (strcmp(tk.type, "}") == 0)
+                                dprime();
+                            else
+                                invalid("}");
+                        }
+                        else
+                            invalid("{");
+                    }
+                    else
+                        invalid(")");
+                }
+                else
+                    invalid(";");
+            }
+            else
+                invalid(";");
+        }
+        else
+            invalid("(");
+    }
+    else
+        return 0;
+}
+
+void dprime(){
+    if (strcmp(tk.type, "else") == 0){
+        if (strcmp(tk.type, "{") == 0){
+            statement_list();
+            if (strcmp(tk.type, "}") == 0){
+            }
+            else
+                invalid("}");
+        }
+        else
+            invalid("{");
+    }
+}
 
 int main(){
     fp = fopen("input.c", "r");
