@@ -29,3 +29,7 @@
 *.map
 *.o
 *.dep
+
+#cdl
+*.tab.c
+*.tab.h
