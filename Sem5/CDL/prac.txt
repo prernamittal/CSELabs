@@ -1,0 +1,1276 @@
+﻿#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+void while_list();
+void while_list_prime();
+void while_loop();
+void Condition();
+void Op();
+void Stmts();
+
+
+// Token struct definition
+typedef struct {
+    char name[20];
+    char type[20];
+} Token;
+
+
+// Hardcoded tokens array
+Token *tokens[50];
+int currentToken = 0;
+
+
+void invalid(){
+    printf("-----------------ERROR!----------------\n");
+    exit(0);
+}
+
+
+void valid(){
+    printf("----------------SUCCESS!---------------\n");
+    exit(0);
+}
+
+
+void initializeTokens() {
+
+
+    for (int i = 0; i < 50; i++) {
+        tokens[i] = (Token *)malloc(sizeof(Token));
+    }
+
+
+    strcpy(tokens[0]->name, "while");
+    strcpy(tokens[0]->type, "KEYWORD");
+
+
+    strcpy(tokens[1]->name, "[");
+    strcpy(tokens[1]->type, "SEPARATOR");
+
+
+    strcpy(tokens[2]->name, "9");
+    strcpy(tokens[2]->type, "NUMBER");
+
+
+    strcpy(tokens[3]->name, "-");
+    strcpy(tokens[3]->type, "SEPARATOR");
+
+
+    strcpy(tokens[4]->name, "ne");
+    strcpy(tokens[4]->type, "OPERATOR");
+
+
+    strcpy(tokens[5]->name, "6");
+    strcpy(tokens[5]->type, "NUMBER");
+
+
+    strcpy(tokens[6]->name, "]");
+    strcpy(tokens[6]->type, "SEPARATOR");
+
+
+    strcpy(tokens[7]->name, ";");
+    strcpy(tokens[7]->type, "SYMBOL");
+
+
+    strcpy(tokens[8]->name, "do");
+    strcpy(tokens[8]->type, "KEYWORD");
+
+
+    strcpy(tokens[9]->name, ";");
+    strcpy(tokens[9]->type, "SEPARATOR");
+
+
+    strcpy(tokens[10]->name, "echo");
+    strcpy(tokens[10]->type, "KEYWORD");
+
+
+    strcpy(tokens[11]->name, "anay");
+    strcpy(tokens[11]->type, "LITERAL");
+
+
+    strcpy(tokens[12]->name, ";");
+    strcpy(tokens[12]->type, "SEPARATOR");
+
+
+    strcpy(tokens[13]->name, "done");
+    strcpy(tokens[13]->type, "KEYWORD");
+
+
+    strcpy(tokens[14]->name, ";");
+    strcpy(tokens[14]->type, "SEPARATOR");
+
+
+    tokens[15] = NULL; // Mark the end of the array
+
+
+}
+
+
+void printTokens() {
+    for (int i = 0; tokens[i] != NULL; ++i) {
+        printf("Token %d: Name=%s, Type=%s\n", i, tokens[i]->name, tokens[i]->type);
+    }
+}
+
+
+Token *getNextToken(){
+    return tokens[currentToken++];
+}
+
+
+void match(char *expected){
+    Token *current=getNextToken();
+    if(strcmp(current->name, expected)!=0){
+        printf("Error: expected %s but found %s\n", expected, current->name);
+    }
+}
+
+
+// SYMBOL TABLE
+
+
+typedef struct {
+    char lexeme[20];
+    char type[20];
+} SymbolEntry;
+
+
+SymbolEntry symbolTable[50];
+int symbolTableIndex = 0;
+
+
+void addToSymbolTable(char *lexeme, char *type) {
+    strcpy(symbolTable[symbolTableIndex].lexeme, lexeme);
+    strcpy(symbolTable[symbolTableIndex].type, type);
+    symbolTableIndex++;
+}
+
+
+void printSymbolTable() {
+    printf("\nSymbol Table:\n");
+    printf("Lexeme\t|\tType\n");
+    printf("------------------------\n");
+    for (int i = 0; tokens[i] != NULL; ++i) {
+        addToSymbolTable(tokens[i]->name, tokens[i]->type);
+    }
+    for (int i = 0; i < symbolTableIndex; ++i) {
+        printf("%s\t|\t%s\n", symbolTable[i].lexeme, symbolTable[i].type);
+    }
+}
+
+
+// RD PARSER FUNCTIONS
+
+
+// while_list —> while_list_prime
+void while_list() {
+    while_list_prime();
+}
+
+
+// while_list_prime —> while_loop while_list_prime | epsilon
+void while_list_prime() {
+    Token *current = getNextToken();
+    if (current == NULL)
+        valid();
+    if (strcmp(current->name, "while") != 0) {
+        return;
+    }
+    else {
+        while_loop();
+        while_list_prime();
+    }
+}
+
+
+// while_loop —> while_list while_loop | while [ Condition ]; do; Stmts; done;
+void while_loop() {
+    // while_list();
+    // while_loop();
+    match("[");
+    Condition();
+    // if (strcmp((tokens[currentToken])->name, "]") != 0)
+    //     invalid();
+    // currentToken++;
+    match("]");
+    match(";");
+    match("do");
+    match(";");
+    Stmts();
+    match(";");
+    match("done");
+    match(";");
+    while_list();
+}
+
+
+// Condition —> num | num -Op num | $id | $id -Op $id
+void Condition() {
+    Token *current = getNextToken();
+    if (strcmp(current->type, "NUMBER") == 0) {
+        current=getNextToken();
+        if(strcmp(current->name, "-") != 0) {
+            return;
+        }
+        else {
+            Op();
+            current = getNextToken();
+            if (strcmp(current->type, "NUMBER") != 0) {
+                printf("Error: Expected NUMBER after operator.\n");
+                invalid();
+            }
+        }
+    }
+    else if (strcmp(current->name, "$") == 0) {
+        match("id");
+        current=getNextToken();
+        if(strcmp(current->name, "-") != 0) {
+            return;
+        }
+        else {
+            Op();
+            match("$");
+            match("id");
+            currentToken++;
+        }
+    }
+    else {
+        invalid();
+    }
+}
+
+
+// Op —> ne | ge | eq | gt | le | lt
+void Op() {
+    Token *current = getNextToken();
+    if (strcmp(current->type, "OPERATOR") != 0) {
+        printf("Error: Expected operator in Condition.\n");
+        invalid();
+    }
+}
+
+
+// Stmts —> if [ Condition ]; then; Stmts; else; Stmts; fi; | echo Literal
+void Stmts() {
+    Token *current = getNextToken();
+    if (strcmp(current->name, "if") == 0) {
+        match("[");
+        Condition();
+        if (strcmp(tokens[currentToken]->name, "]") != 0)
+            invalid();
+        match(";");
+        match("then");
+        match(";");
+        Stmts();
+        match(";");
+        match("else");
+        match(";");
+        Stmts();
+        match(";");
+        match("fi");
+        match(";");
+    }
+    else if (strcmp(current->name, "echo") == 0) {
+        current=getNextToken();
+        if(strcmp(current->type, "LITERAL") != 0)
+            invalid();
+    }
+    else {
+        printf("Error: Invalid statement.\n");
+        invalid();
+    }
+}
+
+
+int main() {
+    // Initialize tokens
+    initializeTokens();
+
+
+    printTokens();
+    printSymbolTable();
+
+
+    // RD Parser code
+    while_list();
+
+
+    valid();
+    // Cleanup
+    // freeTokens();
+
+
+    return 0;
+}
+
+
+
+
+BISON
+%{
+#include <stdio.h>
+#include <stdlib.h>
+%}
+
+
+%token NUMBER ID NL
+%left '+'
+%left '*"
+
+
+%%
+stmt: exp NL {printf("valid expn"); exit(0);}
+;
+exp: exp '+' term | term
+;
+term: term '*' factor |factor
+;
+factor: id | number
+;
+%%
+
+
+int yyerror(char *msg){
+printf("invalid expression");
+exit(0);
+}
+
+
+void main(){
+printf("Enter expression");
+}
+
+
+
+
+//FLEX PART
+%{
+#include "y.tab.h"
+%}
+
+
+%%
+[0-9]+ {return NUMBER;}
+\n {return NL;)
+[a-zA-z]* {return ID;}
+. {return yytext[0];}
+%%
+
+
+FLEX
+%{
+    #include <stdio.h>
+    int posIntCount = 0, negIntCount = 0, posFloatCount = 0, negFloatCount = 0;
+%}
+
+
+%%
+"-"[0-9]+\.[0-9]+ negFloatCount += 1;
+[0-9]+\.[0-9]+ posFloatCount += 1;
+"-"[0-9]+ negIntCount += 1;
+[0-9]+ posIntCount += 1;
+%%
+
+
+int yywrap() {
+    return 1;
+}
+
+
+int main(int argc, char * argv[]) {
+    if (argc > 1) {
+        yyin = fopen(argv[1], "r");
+        yylex();
+        fclose(yyin);
+        printf("\nNumber of positive integers: %d\nNumber of negative integers: %d\nNumber of positive floats: %d\nNumber of negative floats: %d\n", posIntCount, negIntCount, posFloatCount, negFloatCount);
+    }
+    else printf("Invalid format. Usage: ./Q3 <fileName>\n");
+}
+
+
+RDP FOR STRINGS
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int curr=0;
+char str[100];
+
+
+void E();
+void Eprime();
+void T();
+void Tprime();
+void F();
+
+
+void invalid(){
+    printf("invalid");
+    exit(0);
+}
+
+
+void valid(){
+    printf("valid");
+    exit(0);
+}
+
+
+void E(){
+    T();
+    Eprime();
+}
+
+
+void Eprime(){
+    if(str[curr]=='+'){
+        curr++;
+        T();
+        Eprime();
+    }
+}
+
+
+void T(){
+    F();
+    Tprime();
+}
+
+
+void Tprime(){
+    if(str[curr]=='*'){
+        curr++;
+        F();
+        Tprime();
+    }
+}
+
+
+void F(){
+    if(str[curr]=='('){
+        curr++;
+        E();
+        if(str[curr]==')'){
+            curr++;
+            return;
+        }
+        else
+            invalid();
+    }
+    else if(str[curr]=='i'){
+        curr++;
+        return;
+    }
+    else
+        invalid();
+}
+
+
+int main(){
+    printf("Enter String: ");
+    scanf("%s", str);
+    E();
+    if(str[curr] == '$')
+        valid();
+    else
+        invalid();
+}
+
+
+LEXICAL ANALYSER (ACTUAL)
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+const char *keywords[] =  {"if", "else", "switch", "case", "break"};
+const int keywordsLen = 32;
+const char *datatypes[] = {"int", "char", "double", "bool", "float"};
+const int datastypesSizes[] = {4, 1, 8, 1, 4};
+const int datatypesLen = 8;
+
+
+FILE *fptr;
+int dataTypeInd=-1, idCount=1;
+
+
+typedef struct token{
+    char name[100];
+    char type[20];
+} Token;
+
+
+int checkDataType(char * word){
+    for(int i=0; i<datatypesLen; i++){
+        if(strcmp(word, datatypes[i])==0){
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+int checkKeywordId(char * word){
+    for(int i=0; i< keywordsLen; i++){
+        if(strcmp(word, keywords[i])==0){
+            return 1; //is a keyword
+        }
+    }
+    return 0; //is an identifier
+}
+
+
+Token * getCharOrStringLiteral(int type) {
+    char buf[100];
+    int i = 0;
+    buf[i++] = type == 1 ? '\'' : '"';
+    char ch = fgetc(fptr);
+
+
+    while (ch != EOF && ch != (type == 1 ? '\'' : '"')) {
+        buf[i++] = ch;
+        ch = fgetc(fptr);
+    }
+    buf[i++] = (type == 1 ? '\'' : '"');
+    buf[i] = '\0';
+
+
+    Token * new = (Token *) malloc(sizeof(Token));
+    strcpy(new->name, buf);
+    strcpy(new->type, (type == 1 ? "Char literal" : "String literal"));
+    return new;
+}
+
+
+Token * getNumber(char ch) {
+    char buf[100];
+    int i = 0;
+    buf[i++] = ch;
+    ch = fgetc(fptr);
+
+
+    while (ch != EOF && (ch >= '0' && ch <= '9')) {
+        buf[i++] = ch;
+        ch = fgetc(fptr);
+    }
+    fseek(fptr, -1, SEEK_CUR);
+    buf[i] = '\0';
+
+
+    Token * new = (Token *) malloc(sizeof(Token));
+    strcpy(new->name, buf);
+    strcpy(new->type, "Number");
+    return new;
+}
+
+
+Token * getKeywordOrIdentifier(char ch) {
+    char buf[100];
+    int i = 0;
+
+
+    while (ch != EOF && ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_' || (ch >= '0' && ch <= '9'))) {
+        buf[i++] = ch;
+        ch = fgetc(fptr);
+    }
+
+
+    fseek(fptr, -1, SEEK_CUR);
+    buf[i] = '\0';
+
+
+    if (checkKeywordId(buf) == 1) { //Keyword
+        int temp = checkDataType(buf);
+        if (temp != -1)
+            dataTypeInd = temp;
+
+
+        Token * new = (Token *) malloc(sizeof(Token));
+        strcpy(new->name, buf);
+        strcpy(new->type, "Keyword");
+        return new;
+    }
+    else { //Identifier
+        Token * new = (Token *) malloc(sizeof(Token));
+        strcpy(new->name, "id");
+        strcpy(new->type, "Identifier");
+
+
+        ch = fgetc(fptr);
+        int offset = 1, numberOfArgs = 0;
+        char type[100];
+
+
+        while (ch != EOF && (ch == ' ')) {
+            offset++;
+            ch = fgetc(fptr);
+        }
+
+
+        if (ch == '(') {
+            while (ch != ')') {
+                ch = fgetc(fptr);
+                offset++;
+                if (ch == ',') {
+                    if (numberOfArgs == 0)
+                        numberOfArgs = 2;
+                    else
+                        numberOfArgs++;
+                }
+            }
+            strcpy(type, "function");
+        }
+        else
+            strcpy(type, "variable");
+       
+        fseek(fptr, -offset, SEEK_CUR);
+
+
+        char numInStr[10];
+        sprintf(numInStr, "%d", idCount++);
+        strcat(new->name, numInStr);
+
+
+        return new;
+    }
+}
+
+
+Token * getNextToken() {
+    int i;
+    char ch = fgetc(fptr);
+
+
+    if (ch != EOF) {
+        while ((ch != EOF) && (ch == ' ' || ch == '\n')) {
+            if (ch == '\n') {
+                dataTypeInd = -1;
+            }
+            ch = fgetc(fptr);
+        }
+        if (ch == '"')
+            return getCharOrStringLiteral(2);
+
+
+        if (ch == '\'')
+            return getCharOrStringLiteral(1);
+
+
+        if (ch >= '0' && ch <= '9')
+            return getNumber(ch);
+
+
+        if (ch == '(' || ch == ')' || ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == ';' || ch == ',' || ch == '.' || ch == '#' || ch == ':' || ch == '?' || ch == '~' || ch == '^' || ch == '%' || ch == '@' || ch == '`' || ch == '$' || ch == '\\' || ch == '*' || ch == '/') {
+            char separator[2];
+            separator[0] = ch;
+            separator[1] = '\0';
+            Token * new = (Token *) malloc(sizeof(Token));
+            strcpy(new->name, separator);
+            strcpy(new->type, "Separator");
+            return new;
+        }
+
+
+        char buf[3];
+        i = 0;
+        if (ch == '=') {
+            buf[i++] = ch;
+            ch = fgetc(fptr);
+            if (ch == '=')
+                buf[i++] = ch;
+            else
+                fseek(fptr, -1, SEEK_CUR);
+            buf[i] = '\0';
+        }
+        else if (ch == '<' || ch == '>' || ch == '!') {
+            buf[i++] = ch;
+            ch = fgetc(fptr);
+            if (ch == '=')
+                buf[i++] = ch;
+            else
+                fseek(fptr, -1, SEEK_CUR);
+            buf[i] = '\0';
+        }
+        else if (ch == '&') {
+            buf[i++] = ch;
+            ch = fgetc(fptr);
+            if (ch == '&')
+                buf[i++] = ch;
+            else
+                fseek(fptr, -1, SEEK_CUR);
+            buf[i] = '\0';
+        }
+        else if (ch == '|') {
+            buf[i++] = ch;
+            ch = fgetc(fptr);
+            if (ch == '|')
+                buf[i++] = ch;
+            else
+                fseek(fptr, -1, SEEK_CUR);
+            buf[i] = '\0';
+        }
+        else if (ch == '!') {
+            ch = fgetc(fptr);
+            if (ch == '=')
+                buf[i++] = ch;
+            fseek(fptr, -1, SEEK_CUR);
+            buf[i] = '\0';
+        }
+        else if (ch == '+') {
+            buf[i++] = ch;
+            ch = fgetc(fptr);
+            if (ch == '+')
+                buf[i++] = ch;
+            else if (ch == '=')
+                buf[i++] = ch;
+            else
+                fseek(fptr, -1, SEEK_CUR);
+            buf[i] = '\0';
+        }
+        else if (ch == '-') {
+            buf[i++] = ch;
+            ch = fgetc(fptr);
+            if (ch == '-')
+                buf[i++] = ch;
+            else if (ch == '=')
+                buf[i++] = ch;
+            else if (ch == '>')
+                buf[i++] = ch;
+            else
+                fseek(fptr, -1, SEEK_CUR);
+            buf[i] = '\0';
+        }
+
+
+        if (i > 0) {
+            Token * new = (Token *) malloc(sizeof(Token));
+            strcpy(new->name, buf);
+            strcpy(new->type, "Operator");
+            return new;
+        }
+        else
+            return getKeywordOrIdentifier(ch);
+    }
+    return NULL;
+}
+
+
+void initLA(char * fileName) {
+    fptr = fopen(fileName, "r");
+    dataTypeInd = -1;
+}
+
+
+
+
+SCANNER (ACTUAL)
+
+
+#include <stdio.h>
+
+
+int preliminaryScanner(char *fileName) {
+    FILE *fptr1 = fopen(fileName, "r");
+    if (fptr1 != NULL) {
+        FILE *fptr2 = fopen("Out.txt", "w+");
+        char ch = fgetc(fptr1);
+
+
+        while (ch != EOF) {
+            if (ch == '#' ) {
+                while (ch != EOF && (ch != '\n'))
+                    ch = fgetc(fptr1);
+            } else if ((ch == '\t' || ch == ' ')) {
+                fputc(' ', fptr2);
+                while (ch != EOF && (ch == '\t' || ch == ' '))
+                    ch = fgetc(fptr1);
+            } else if (ch == '/') {
+                ch = fgetc(fptr1);
+                if (ch == '/') {
+                    while (ch != EOF && (ch != '\n'))
+                        ch = fgetc(fptr1);
+                } else if (ch == '*') {
+                    do {
+                        ch = fgetc(fptr1);
+                        if (ch == '*') {
+                            ch = fgetc(fptr1);
+                            if (ch == '/') {
+                                ch = fgetc(fptr1);
+                                break;
+                            }
+                        }
+                    } while (ch != EOF);
+                } else {
+                    fputc('/', fptr2);
+                    fputc(ch, fptr2);
+                    ch = fgetc(fptr1);
+                }
+            } else {
+                if (ch == '\n') {
+                    // Reset any state variables if needed
+                }
+                fputc(ch, fptr2);
+                ch = fgetc(fptr1);
+            }
+        }
+        fclose(fptr1);
+        fclose(fptr2);
+        return 1;
+    } else {
+        printf("Could not open file: %s", fileName);
+        return 0;
+    }
+}
+
+
+
+
+
+
+RDP (COMBINED)
+
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include "scanner.c"
+#include "la.c"
+
+
+void IDList();
+void StatementList(Token *);
+Token * bufToken;
+
+
+int checkIfID(char * name) {
+    if ((name[0] == 'i') && (name[1] == 'd'))
+        return 1;
+    return 0;
+}
+
+
+int checkIfNum(char * name) {
+    for (int i = 0; name[i] != '\0'; i++) {
+        if (!isdigit(name[i]))
+            return 0;
+    }
+    return 1;
+}
+
+
+void invalid(Token * token, char * name) {
+    if (token == NULL) {
+        if (name != NULL) printf("Unexpected end of code. Expected: %s\n", name);
+        else printf("Unexpected end of code.\n");
+    }
+    else {
+        if (checkIfID(token->name)) {
+            if (name != NULL) printf("Error at: %s. Row: %d, Col: %d. Expected: %s\n", token->name,  name);
+            else printf("Error at: %s. Row: %d, Col: %d\n", token->name);
+        }
+        else {
+            if (name != NULL) printf("Error at: %s. Row: %d, Col: %d. Expected : %s\n", token->name,  name);
+            else printf("Error at: %s. Row: %d, Col: %d\n", token->name);
+        }
+    }
+    exit(1);
+}
+
+
+void AlphaNum() {
+    Token * token = getNextToken();
+    if (!checkIfNum(token->name)) {
+        if (!(token->name[0] == '\'' && token->name[strlen(token->name) - 1] == '\''))
+            invalid(token, "Alphanum");
+    }
+}
+
+
+void Factor() {
+    Token * token = getNextToken();
+    if (token == NULL) invalid(token, NULL);
+    if (!(checkIfID(token->name) || checkIfNum(token->name)))
+        invalid(token, "Identifier or Number");
+}
+
+
+int MulOp(Token * token) {
+    if ((strcmp(token->name, "*") == 0) || (strcmp(token->name, "/") == 0) || (strcmp(token->name, "%") == 0))
+        return 1;
+    return 0;
+}
+
+
+int AddOp(Token * token) {
+    if ((strcmp(token->name, "+") == 0) || (strcmp(token->name, "-") == 0))
+        return 1;
+    return 0;
+}
+
+
+void TermPrime() { // Changes bufToken
+    Token * token = getNextToken();
+    if (token == NULL) invalid(token, NULL);
+    int res = MulOp(token);
+    if (res) {
+        Factor();
+        TermPrime();
+    }
+    else bufToken = token;
+}
+
+
+void Term() {
+    Factor();
+    TermPrime();
+}
+
+
+void SimpleExpressionPrime(Token * token) { // Changes bufToken
+    int res = AddOp(token);
+    if (res) {
+        Term();
+        SimpleExpressionPrime(bufToken);
+    }
+    else bufToken = token;
+}
+
+
+void SimpleExpression() { // Changes bufToken
+    Term();
+    SimpleExpressionPrime(bufToken);
+}
+
+
+int RelOp(Token * token) {
+    if ((strcmp(token->name, "==") == 0) || (strcmp(token->name, "!=") == 0) || (strcmp(token->name, "<=") == 0) || (strcmp(token->name, ">=") == 0) || (strcmp(token->name, ">") == 0) || (strcmp(token->name, "<") == 0))
+        return 1;
+    return 0;
+}
+
+
+void ExpressionPrime(Token * token) { // Changes bufToken
+    int res = RelOp(token);
+    if (res)
+        SimpleExpression(token);
+    else bufToken = token;
+}
+
+
+void Expression() { // Changes bufToken
+    SimpleExpression();
+    ExpressionPrime(bufToken);
+}
+
+
+int AssignStatement(Token * token) { // Changes bufToken. Returns 1 if epsilon
+    if (checkIfID(token->name)) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, "=");
+        if (strcmp(token->name, "=") == 0)
+            Expression();
+    }
+    else return 1;
+}
+
+
+void DecisionStatementPrime() { // Changes bufToken
+    Token * token = getNextToken();
+    if (strcmp(token->name, "else") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, "{");
+        if (strcmp(token->name, "{") == 0) {
+            StatementList(NULL);
+            token = bufToken;
+            if (strcmp(token->name, "}") != 0)
+                invalid(token, "}");
+            bufToken = getNextToken();
+            if (bufToken == NULL) invalid(bufToken, NULL);
+        }
+        else invalid(token, "{");
+    }
+    else bufToken = token;
+}
+
+
+int Case(Token * token) { // Returns 1 if epsilon. Changes bufToken
+    if (strcmp(token->name, "case") == 0) {
+        AlphaNum();
+        token = getNextToken();
+        if (token == NULL) invalid(token, ":");
+        if (strcmp(token->name, ":") == 0)
+            StatementList(NULL);
+        else invalid(token, ":");
+    }
+    else if (strcmp(token->name, "default") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, ":");
+        if (strcmp(token->name, ":") == 0)
+            StatementList(NULL);
+        else invalid(token, ":");
+    }
+    else return 1;
+}
+
+
+void CaseList(Token * token) { // Returns 1 if epsilon. Changes bufToken
+    int res = Case(token);
+    if (res != 1)
+        CaseList(bufToken);
+    else
+        bufToken = token;
+}
+
+
+int DecisionStatement(Token * token) { // Changes bufToken
+    if (strcmp(token->name, "if") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, NULL);
+        if (strcmp(token->name, "(") == 0) {
+            Expression();
+            token = bufToken;
+            if (strcmp(token->name, ")") == 0) {
+                token = getNextToken();
+                if (token == NULL) invalid(token, "{");
+                if (strcmp(token->name, "{") == 0) {
+                    StatementList(NULL);
+                    token = bufToken;
+                    if (strcmp(token->name, "}") == 0)
+                        DecisionStatementPrime();
+                    else invalid(token, "}");
+                }
+                else invalid(token, "{");
+            }
+            else invalid(token, ")");
+        }
+        else invalid(token, "(");
+    }
+    else if (strcmp(token->name, "switch") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, "(");
+        if (strcmp(token->name, "(") == 0) {
+            Expression();
+            token = bufToken;
+            if (strcmp(token->name, ")") == 0) {
+                token = getNextToken();
+                if (token == NULL) invalid(token, "{");
+                if (strcmp(token->name, "{") == 0) {
+                    token = getNextToken();
+                    CaseList(token);
+                    token = bufToken;
+                    if (strcmp(token->name, "}") != 0)
+                        invalid(token, "}");
+                    bufToken = getNextToken();
+                    if (bufToken == NULL) invalid(bufToken, NULL);
+                }
+                else invalid(token, "{");
+            }
+            else invalid(token, ")");
+        }
+        else invalid(token, "(");
+    }
+    else return 1;
+}
+
+
+int LoopingStatement(Token * token) { // Returns 1 if epsilon
+    if (strcmp(token->name, "while") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, "(");
+        if (strcmp(token->name, "(") == 0) {
+            Expression();
+            token = bufToken;
+            if (strcmp(token->name, ")") == 0) {
+                token = getNextToken();
+                if (token == NULL) invalid(token, "{");
+                if (strcmp(token->name, "{") == 0) {
+                    StatementList(NULL);
+                    token = bufToken;
+                    if (strcmp(token->name, "}") != 0)
+                        invalid(token, "}");
+                    bufToken = getNextToken();
+                    if (bufToken == NULL) invalid(bufToken, NULL);
+                }
+                else invalid(token, "{");
+            }
+            else invalid(token, ")");
+        }
+        else invalid(token, "(");
+    }
+    else if (strcmp(token->name, "for") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, "(");
+        if (strcmp(token->name, "(") == 0) {
+            token = getNextToken();
+            int res = AssignStatement(token);
+            if (res == 1)
+                invalid(token, "Assignment Statement");
+            token = bufToken;
+            Expression();
+            token = bufToken;
+            if (strcmp(token->name, ";") != 0)
+                invalid(token, ";");
+            token = getNextToken();
+            res = AssignStatement(token);
+            if (res == 1)
+                invalid(token, "Assignment Statement");
+            token = bufToken;
+            if (strcmp(token->name, ")") != 0)
+                invalid(token, ")");
+            token = getNextToken();
+            if (strcmp(token->name, "{") == 0) {
+                StatementList(NULL);
+                token = bufToken;
+                if (strcmp(token->name, "}") != 0)
+                    invalid(token, "}");
+                bufToken = getNextToken();
+                if (bufToken == NULL) invalid(bufToken, NULL);
+            }
+            else invalid(token, "{");
+        }
+        else invalid(token, "(");
+    }
+    else return 1;
+    return 0;
+}
+
+
+int Statement(Token * token) { // Returns 1 if epsilon, 0 otherwise and Changes bufToken
+    int res = AssignStatement(token);
+    if (res != 1) {
+        token = bufToken;
+        if ((token == NULL) || (strcmp(token->name, ";") != 0))
+            invalid(token, ";");
+        bufToken = getNextToken();
+        if (bufToken == NULL) invalid(bufToken, NULL);
+    }
+    else {
+        res = DecisionStatement(token);
+        if (res == 1)
+            res = LoopingStatement(token);
+    }
+    return res;
+}
+
+
+void StatementList(Token * token) { // Changes bufToken
+    if (token == NULL) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, NULL);  
+    }
+    int res = Statement(token);
+    if (res != 1)
+        StatementList(bufToken);
+    else
+        bufToken = token;
+}
+
+
+Token * IDListPrime() {
+    Token * token = getNextToken();
+    if (strcmp(token->name, ",") == 0)
+        IDList();
+    else if (strcmp(token->name, "[") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, "Number");
+        if (checkIfNum(token->name)) {
+            token = getNextToken();
+            if (token == NULL) invalid(token, NULL);
+            if (strcmp(token->name, "]") != 0)
+                invalid(token, "]");
+            else {
+                token = getNextToken();
+                if (strcmp(token->name, ",") == 0)
+                    IDList();
+                else
+                    return token;
+            }
+        }
+        else invalid(token, "Number");
+    }
+    else return token;
+    return NULL;
+}
+
+
+void IDList() {
+    Token * token = getNextToken();
+    if (token == NULL) invalid(token, "Identifier");
+    if (checkIfID(token->name)) {
+        token = IDListPrime();
+        if (token != NULL)
+            bufToken = token;
+    }
+    else invalid(token, "Identifier");
+}
+
+
+void Declarations() {
+    Token * token = getNextToken();
+    if (token == NULL) invalid(token, "Datatype");
+    if (checkDataType(token->name) != -1) {
+        IDList();
+        token = bufToken;
+        if (strcmp(token->name, ";") == 0)
+            Declarations();
+    }
+    else bufToken = token;
+}
+
+
+int Program() {
+    Token * token = getNextToken();
+    if (strcmp(token->name, "main") == 0) {
+        token = getNextToken();
+        if (token == NULL) invalid(token, "(");
+        if (strcmp(token->name, "(") == 0) {
+            token = getNextToken();
+            if (token == NULL) invalid(token, ")");
+            if (strcmp(token->name, ")") == 0) {
+                token = getNextToken();
+                if (token == NULL) invalid(token, "{");
+                if (strcmp(token->name, "{") == 0) {
+                    Declarations();
+                    StatementList(bufToken);
+                    token = bufToken;
+                    if (token == NULL) invalid(token, "}");
+                    if (strcmp(token->name, "}") == 0)
+                        return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+
+void main() {
+    char fileName[100];
+
+
+    strcpy(fileName, "Text.txt");
+
+
+    preliminaryScanner(fileName);
+    initLA("Out.txt");
+
+
+    int res = Program();
+
+
+    if (res)
+        printf("Valid\n");
+    else
+        printf("Invalid\n");
+
+
+}
