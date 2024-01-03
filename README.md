@@ -19,6 +19,6 @@
 <li>Operating System Lab (OSL) : C programming
 
 <h2><b>6th Semester :</b></h2>
-Distributed Systems Lab (DSL)
-Internet Technologies Lab (ITL)
-Parallel Programming Lab (PPL)
+<li>Distributed Systems Lab (DSL)
+<li>Internet Technologies Lab (ITL)
+<li>Parallel Programming Lab (PPL)
