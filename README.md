@@ -15,5 +15,10 @@
 <h2><b>5th Semester :</h2></b>
 
 <li>Compiler Design Lab (CDL) : C programming
-<li>Computer Networks Lab (CNL) : C programmingX
+<li>Computer Networks Lab (CNL) : C programming
 <li>Operating System Lab (OSL) : C programming
+
+<h2><b>6th Semester :</b></h2>
+Distributed Systems Lab (DSL)
+Internet Technologies Lab (ITL)
+Parallel Programming Lab (PPL)
