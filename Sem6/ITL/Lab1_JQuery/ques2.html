@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ques2</title>
+    <script src="jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready( 
+            function() {
+                let val = 0;
+                let resBox = $("#resBox")
+                resBox.html(val);
+                $("input[type=button]").bind("click", function() {
+                    let inp1 = parseFloat($("#inpBox1").val());
+                    let inp2 = parseFloat($("#inpBox2").val());
+                    if (isNaN(inp1) || isNaN(inp2)) {
+                        alert("Invalid input");
+                        return;
+                    }
+                    let operator = $(this).val();
+                    if (operator == '+')
+                        val = inp1 + inp2;
+                    else if (operator == '-')
+                        val = inp1 - inp2;
+                    else if (operator == '*')
+                        val = inp1 * inp2;
+                    else
+                        val = inp1 / inp2;
+                    let t = inp1 + operator + inp2 + "=" + val;
+                    resBox.html(t);
+                })
+            }
+        );
+    </script>
+</head>
+
+<body>
+    <input placeholder="Enter number" type="text" id="inpBox1">
+    <input placeholder="Enter number" type="text" id="inpBox2">
+    <br><br>
+    <label for = "operation">Select Operation: </label>
+    <input type="button" value="/">
+    <input type="button" value="*">
+    <input type="button" value="-">
+    <input type="button" value="+">
+    <br><br>Result:
+    <span id="resBox"></span>
+</body>
+</html>

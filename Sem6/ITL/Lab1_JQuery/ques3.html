@@ -1,0 +1,89 @@
+<html>
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ques3</title>
+    <script src="jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(
+            function() {
+                let card = $("#card");
+                let borderStyle = "None";
+                card.css("background-color", $("#back-color").val());
+                card.css("font-family", $("#fontchoice").val());
+                card.css("font-size", $("#fontsizeinp").val() + "px" )
+                card.css("border-style", borderStyle);
+                if ($("#default-pic-checkbox").is(':checked'))
+                    $("#default-img").css("display", "block");
+                else
+                    $("#default-img").css("display", "none");
+                $("#card-text").text($("#greeting-text-input").val());
+
+                $("#None-radio-btn").bind("click", function() {
+                    borderStyle = "None";
+                })
+                $("#Solid-radio-btn").bind("click", function() {
+                    borderStyle = "Solid";
+                })
+                $("#Double-radio-btn").bind("click", function() {
+                    borderStyle = "Double";
+                })
+
+                $("#update-btn").bind("click", function() {
+                    card.css("background-color", $("#back-color").val());
+                    card.css("font-family", $("#fontchoice").val());
+                    card.css("font-size", $("#fontsizeinp").val() + "px" )
+                    card.css("border-style", borderStyle);
+                    if ($("#default-pic-checkbox").is(':checked'))
+                        $("#default-img").css("display", "block");
+                    else
+                        $("#default-img").css("display", "none");
+                    $("#card-text").text($("#greeting-text-input").val());
+                })
+            }
+        );
+    </script>
+    </head>
+
+ <body>
+    <label for="back-color">Choose a background color:</label><br>
+    <select name="back-color" id="back-color">
+        <option value="#77DD77">Pastel Green</option>
+        <option value="#FDFD96">Pastel Yellow</option>
+        <option value="#ADD8E6">Pastel Blue</option>
+        <option value="pink">Pastel Pink</option>
+    </select>
+    <br><br>
+    <label for="fontchoice">Choose a font:</label><br>
+    <select name="fontchoice" id="fontchoice">
+        <option value="Brush Script MT">Brush Script MT (Cursive)</option>
+        <option value="verdana">Verdana</option>
+        <option value="impact">Impact</option>
+        <option value="'ms comic sans'">MS Comic Sans</option>
+    </select>
+    <br><br>
+    <label for="fontsizeinp">Specify a numeric font size:</label><br>
+    <input type="text" id="fontsizeinp">
+    <br><br>
+    <form>
+        <span for="borderstylechoice">Choose a border style:</span>
+        <br>
+        <input type="radio" id="None-radio-btn" value="None">
+        <label for="None-radio-btn">None</label><br>
+        <input type="radio" id="Double-radio-btn" value="Double">
+        <label for="Double-radio-btn">Double</label><br>
+        <input type="radio" id="Solid-radio-btn" value="Solid">
+        <label for="Solid-radio-btn">Solid</label><br><br>
+    </form>
+    <input type="checkbox" id="default-pic-checkbox">
+    <label for="default-pic-checkbox">Add the Default Picture</label>
+    <br><br>
+    <label for="greeting-text-input">Enter the greeting text below:</label><br>
+    <textarea id="greeting-text-input" rows="5" cols="30"></textarea><br>
+    <button id="update-btn" style="margin-top: 1rem;">Update</button>
+    <div id="card" style="position: absolute; right: 0; top: 0; height: 30rem; width: 20rem; ">
+        <div id="card-text" style="height: 15rem; text-align: center; margin-top: 2rem;"></div>
+        <img id="default-img" style="display:none; width: 8rem; margin-left: auto; margin-right: auto; margin-bottom: 3rem" src="img.jpg">
+    </div>
+ </body>
+</html>

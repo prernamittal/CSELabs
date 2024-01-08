@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ques1</title>
+    <script src="jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready( 
+            function() {
+                let n = 1;
+                let location = 0; //0 for left, 1 for right
+                $("tr").each(
+                    function() {
+                        if (n % 2 == 0) 
+                            $(this).css("background-color", "pink");
+                        else
+                            $(this).css("background-color", "grey");
+                        n += 1;
+                    }
+                )
+                $("#btn1").bind("click", function() {
+                    if (location == 0) {
+                        $("#translate-elem").css("left", "");
+                        $("#translate-elem").animate({right: '10px'}, 0);
+                        location = 1;
+                    }
+                    else {
+                        $("#translate-elem").css("right", "");
+                        $("#translate-elem").animate({left: '10px'}, 0);
+                        location = 0;
+                    }
+                })
+            }
+        );
+    </script>
+    
+    <style type="text/css">
+        td {
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn1"> move </button>
+    <div id ="translate-elem" style="position: absolute;">
+    <img src = "img.jpg" alt="image" width="200" height="200">
+
+    <table>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+        </tr>
+    </table>
+    </div>
+</body>
+</html>
