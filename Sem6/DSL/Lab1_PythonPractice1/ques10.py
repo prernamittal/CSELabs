@@ -1,10 +1,10 @@
-list = [11, -21, 0, 45, 66, -93]
-print("list Items = ", list)
+li = [11, -21, 0, 45, 66, -93]
+print("li Items = ", li)
 
-for num in list:
+for num in li:
     divid = num % 2
     if divid == 0 :
-        list.remove(num)
+        li.remove(num)
         
-print(f"List after removing all even numbers: {list}")
+print(f"List after removing all even numbers: {li}")
     

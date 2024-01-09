@@ -12,8 +12,11 @@ print('October' in months)
 
 print(months.pop())
 
-print(months.insert(1, "August"))
+months.insert(1, "August")
+print(months)
 
-print(months.reverse())
+months.reverse()
+print(months)
 
-print(months.clear())
+months.clear()
+print(months)
