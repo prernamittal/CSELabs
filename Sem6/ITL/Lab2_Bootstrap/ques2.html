@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ques2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="../Lab1_JQuery/jquery-3.7.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(
+            function() {
+                $("#create-btn").bind("click", function() {
+                    $('#myTable').append('<tr><td>'+$('#name').val()+'</td><td>'+$('#email').val()+'</td><td>'+$('#salary').val()+'</td><td>'+$('#city').val()+'</td><td><button type="submit" class="btn btn-outline-primary" id="edit-btn">Edit</button><button type="submit" class="btn btn-outline-danger" id="delete-btn">Delete</button></td></tr>');
+                    let bill = "User Created!";
+                    alert(bill);
+                })
+                $("#edit-btn").bind("click", function() {
+                    let bill = "User Details Edited!";
+                    alert(bill);
+                })
+                $("#delete-btn").bind("click", function() {
+                    let bill = "User deleted!";
+                    alert(bill);
+                })
+            }
+        );
+    </script>
+
+</head>
+
+<body>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Full Name:</label>
+            <div class="col-sm-10">
+                <input type="name" class="form-control" id="name" placeholder="Enter name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="salary">Salary:</label>
+            <div class="col-sm-10">
+                <input type="salary" class="form-control" id="salary" placeholder="Enter salary">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="city">City:</label>
+            <div class="col-sm-10">
+                <input type="city" class="form-control" id="city" placeholder="Enter city">
+            </div>
+        </div>
+
+    </form>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-outline-success" id="create-btn">Create</button>
+        </div>
+    </div>
+<br/>
+<div class="container">
+    <table class="table table-dark table-striped" id="myTable">
+    <thead>
+    <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Salary</th>
+    <th>City</th>
+    <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Prerna Mittal</td>
+    <td>prerna@example.com</td>
+    <td>1,25,000</td>
+    <td>Noida</td>
+    <td>
+        <button type="submit" class="btn btn-outline-primary" id="edit-btn">Edit</button>
+        <button type="submit" class="btn btn-outline-danger" id="delete-btn">Delete</button>
+    </td>
+    </tr> 
+    </tbody>
+    </table>
+</div>
+</body>
+</html>
