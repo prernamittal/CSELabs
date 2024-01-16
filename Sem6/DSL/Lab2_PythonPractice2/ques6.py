@@ -1,6 +1,6 @@
 import pandas as pd
 
-data1 = [['Dinesh', 80, 81, 95, 100],['Nithya', 70, 71, 85, 90],['Raji', 84, 82, 45, 80], ['Ram', 70, 61, 95, 74]]
+data1 = [['Dinesh', 8, 8, 9, 10],['Nithya', 10, 7, 8, 9],['Raji', 4, 8, 4, 8], ['Ram', 7, 6, 9, 7]]
 df1 = pd.DataFrame(data1,columns=['Name','Quiz_1 /10', 'In-Sem_1 /15', 'Quiz_2 /10', 'In-Sem_2 /15'])
 
 # part-1
