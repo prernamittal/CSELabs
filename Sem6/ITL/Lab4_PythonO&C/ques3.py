@@ -2,7 +2,6 @@ class findPow:
    def pow(self, x, n):
         if x==0 or x==1 or n==1:
             return x 
-
         if x==-1:
             if n%2 ==0:
                 return 1
@@ -17,6 +16,4 @@ class findPow:
             return val*val
         return val*val*x
 
-print(findPow().pow(2, -3))
-print(findPow().pow(3, 5))
-print(findPow().pow(100, 0))
+print(findPow().pow(2, -3), findPow().pow(3, 5), findPow().pow(100, 0))

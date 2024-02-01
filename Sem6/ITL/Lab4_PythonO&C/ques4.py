@@ -1,13 +1,13 @@
-class getString():
+class pgString():
     def __init__(self):
-        self.str1 = ""
+        self.str = ""
 
     def get_String(self):
-        self.str1 = input()
+        self.str = input()
 
     def print_String(self):
-        print(self.str1.upper())
+        print(self.str.upper())
 
-str1 = getString()
-str1.get_String()
-str1.print_String()
+str = pgString()
+str.get_String()
+str.print_String()
