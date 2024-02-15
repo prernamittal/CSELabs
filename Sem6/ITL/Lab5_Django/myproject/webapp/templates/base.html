@@ -7,17 +7,25 @@
 
     <body>
         <!-- index -->
-        <h1>{{title}}</h1>
-        <p>{% autoescape off %}{{ cal }} {% endautoescape %}</p>
+        <!-- <h1>{{title}}</h1>
+        <p>{% autoescape off %}{{ cal }} {% endautoescape %}</p> -->
 
         <!--sample  -->
         <h2>Add Two Numbers</h2>
         <script type="text/javascript">
             function myfunc(){
-            var n1= document.getElementById("num1").value;
-            var n2= document.getElementById("num2").value;
-            var n3=parseInt(n1)+parseInt(n2);
-            document.getElementById("para1").innerHTML="The sum of two numbers is "+n3;
+                var n1= document.getElementById("num1").value;
+                var n2= document.getElementById("num2").value;
+                var n3=parseInt(n1)+parseInt(n2);
+                document.getElementById("para1").innerHTML="The sum of two numbers is "+n3;
+            }
+
+            function submit(){
+                var physics= document.getElementById("physics").value;
+                var chemistry= document.getElementById("chemistry").value;
+                var english = document.getElementById("english").value;
+                var avg=(parseInt(physics)+parseInt(chemistry)+parseInt(english))/3;
+                document.getElementById("output").value = "Average Marks: "+ avg;
             }
         </script>
         Enter num1: <input type="text" id="num1"><br>
@@ -30,54 +38,36 @@
         <div class="main"> 
             <form action="" method="get"> 
                 <label for="name">Name:</label> 
-                <input type="text" id="first" name="first"> <br>     
+                <input type="text" id="name" name="name"> <br>     
             
                 <label for="email">Email:</label> 
-                <input type="email" id="email" name="email" 
-                       placeholder="Enter your email" required> 
+                <input type="email" id="email" name="email" placeholder="Enter your email" required> <br>
       
                 <label for="dob">Date of Birth:</label> 
-                <input type="date" 
-                       id="dob" name="dob" 
-                       placeholder="Enter your DOB" required> 
-      
-                <label for="password">Password:</label> 
-                <input type="password" id="password" 
-                       name="password"
-                       placeholder="Enter your password"
-                       pattern= 
-                       "^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$" required                    
-                       title="Password must contain at least one number,  
-                           one alphabet, one symbol, and be at  
-                           least 8 characters long"> 
-      
-                <label for="repassword">Re-type Password:</label> 
-                <input type="password" id="repassword" 
-                       name="repassword" 
-                       placeholder="Re-Enter your password" required> 
-                <span id="pass"></span> 
+                <input type="date" id="dob" name="dob" placeholder="Enter your DOB" required> <br>
       
                 <label for="mobile">Contact:</label> 
-                <input type="text" id="mobile" 
-                       name="mobile" 
-                       placeholder="Enter your Mobile Number" required 
-                       maxlength="10"> 
+                <input type="text" id="mobile" name="mobile" placeholder="Enter your Mobile Number" required maxlength="10"> <br>
       
-                <label for="gender">Gender:</label> 
-                <select id="gender" name="gender" required> 
-                    <option value="male">Male</option> 
-                    <option value="female">Female</option> 
-                    <option value="other">Other</option> 
-                </select> 
-      
-                <div class="wrap"> 
-                    <button type="submit" onclick="solve()"> 
-                      Submit 
-                      </button> 
-                </div> 
+                <label for="address">Address:</label> 
+                <input type="text" id="address" name="address" placeholder="Enter your address" required> <br>
+
+                <label for="english">English Marks:</label> 
+                <input type="text" id="english" name="english" placeholder="Enter your english marks:" required maxlength="2"> <br>
+
+                <label for="physics">Physics Marks:</label> 
+                <input type="text" id="physics" name="physics" placeholder="Enter your physics marks:" required maxlength="2"> <br>
+
+                <label for="chemistry">Chemistry Marks:</label> 
+                <input type="text" id="chemistry" name="chemistry" placeholder="Enter your chemistry marks:" required maxlength="2"> <br><br>
+
+                <button type="submit" onclick="submit()"> Submit </button> <br><br>
             </form> 
+            <textarea name="output" cols="30" rows="5" id="output"></textarea>
         </div> 
 
+         <!-- ques2 -->
+         <h2>Ques-2</h2>
            
     </body>
 </html>
