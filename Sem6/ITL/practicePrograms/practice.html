@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="jquery.js"></script>
+    <!-- jquery -->
+    <script>
+        var img1=0, img2=0, img3=0;
+        $(document).ready(
+            function(){
+                $("#btn1").click(
+                    function(){
+                        img1++;
+                        $("#c1").text(img1)
+                        console.log(img1)
+                    }
+                );
+                $("#btn2").click(
+                    function(){
+                        img2++;
+                        $("#c2").text(img1)
+                    }
+                );
+                $("#btn3").click(
+                    function(){
+                        img3++;
+                        $("#c3").text(img1)
+
+                    }
+                );
+
+                $("#submit").click(
+                    function(){
+                        var total = img1+img2+img3;
+                        if(total>=10){
+                            $("#result").text("Counter sum >= 10")
+                        }
+                        else
+                            $("#result").text("Counter sum < 10")
+                    }
+                )
+            }
+        )
+    </script>
+
+
+</head>
+<body>
+    <!-- boostrap -->
+    <div class = "container">
+        <div class = "row">
+            <div class="col-sm-4">
+                <!-- <img src="img1.jpg"  alt="img1" id="img1"><br> -->
+                <div id = "c1"></div>
+                <button class="btn btn-primary" id="btn1">Increment</button>
+            </div>
+            <div class="col-sm-4">
+                <div id="c2"></div>
+                <!-- <img src="img2.jpg"  alt="img2" id="img2"><br> -->
+                <button class="btn btn-primary" id="btn2">Increment</button>
+            </div>
+            <div class="col-sm-4">
+                <div id="c3"></div>
+                <!-- <img src="img3.jpg"  alt="img3" id="img3"><br> -->
+                <button class="btn btn-primary" id="btn3">Increment</button>
+            </div>
+        </div>
+        <button class="btn btn-success" id="submit">Submit</button>
+        <div id="result"></div>
+    </div>
+
+    
+</body>
+</html>
