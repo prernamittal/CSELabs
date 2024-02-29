@@ -1,0 +1,46 @@
+//create project
+py -m django startproject lab
+
+//create app
+py manage.py startapp labapp
+
+//edit lab/settings.py
+INSTALLED_APPS = (
+ 'labapp', 
+) 
+
+//create view: labapp/views.py
+
+//new file: labapp/urls.py
+from django.urls import path, re_path
+from . import views
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+
+//edit lab/urls.py
+from django.urls import path, include
+from django.contrib import admin
+urlpatterns = [
+ path('admin/', admin.site.urls),
+ path('', include('labapp.urls')),
+]
+
+//add templates folder in labapp folder
+
+//edit settings.py
+import os
+TEMPLATES = [{
+'DIRS': [os.path.join(BASE_DIR, 'webapp/templates')], 
+
+//edit views.py if using template
+return render(request, 'base.html', {'title': title, 'cal': cal}) 
+
+//use below line in template to display output from views
+<p>{% autoescape off %} {{ cal }} {% endautoescape %}</p> 11 </body> 
+
+//forms: create forms.py in labapp folder
+add line: from django import forms
+
+//start the server
+py manage.py runserver

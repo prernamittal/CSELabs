@@ -30,8 +30,8 @@
                 })
 
                 $("#update-btn").bind("click", function() {
-                    card.css("background-color", $("#back-color").val());
-                    card.css("font-family", $("#fontchoice").val());
+                    card.css("text1", $("#back-color").val());
+                    card.css("vegetables1", $("#fontchoice").val());
                     card.css("font-size", $("#fontsizeinp").val() + "px" )
                     card.css("border-style", borderStyle);
                     if ($("#default-pic-checkbox").is(':checked'))
@@ -46,24 +46,38 @@
     </head>
 
  <body>
-    <label for="back-color">Choose a background color:</label><br>
+    <label for="text1">Dairy items:</label>
     <select name="back-color" id="back-color">
-        <option value="#77DD77">Pastel Green</option>
-        <option value="#FDFD96">Pastel Yellow</option>
-        <option value="#ADD8E6">Pastel Blue</option>
-        <option value="pink">Pastel Pink</option>
+        <option value="milk">Milk</option>
+        <option value="curd">Curd</option>
+        <option value="yoghurt">yoghurt</option>
+        <option value="paneer">paneer</option>
     </select>
     <br><br>
-    <label for="fontchoice">Choose a font:</label><br>
+    <label for="Vegetables1">Vegetables</label>
     <select name="fontchoice" id="fontchoice">
-        <option value="Brush Script MT">Brush Script MT (Cursive)</option>
-        <option value="verdana">Verdana</option>
-        <option value="impact">Impact</option>
-        <option value="'ms comic sans'">MS Comic Sans</option>
+        <option value="brinjal">brinjal</option>
+        <option value="onion">onion</option>
+        <option value="ladyfinger">ladyfinger</option>
+        <option value="spinach">spinach</option>
     </select>
     <br><br>
-    <label for="fontsizeinp">Specify a numeric font size:</label><br>
-    <input type="text" id="fontsizeinp">
+    <label for="Cereals">Cereals</label>
+    <select name="fontchoice" id="fontchoice">
+        <option value="oats">oats</option>
+        <option value="onion">chocos</option>
+        <option value="ladyfinger">cornflakes</option>
+        
+    </select>
+    
+    <br><br>
+    <label for="Vegetables1">Herbs</label>
+    <select name="fontchoice" id="fontchoice">
+        <option value="brinjal">chia seeds</option>
+        <option value="onion">black pepper</option>
+        <option value="ladyfinger">leaves</option>
+        
+    </select>
     <br><br>
     <form>
         <span for="borderstylechoice">Choose a border style:</span>
